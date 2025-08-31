@@ -1,82 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>n0signal</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      overflow: hidden;
-      font-family: monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      color: white;
-    }
-
-    .glitch {
-      font-size: 3rem;
-      position: relative;
-      color: white;
-      animation: flicker 2s infinite alternate;
-    }
-
-    .glitch::before,
-    .glitch::after {
-      content: 'n0signal';
-      position: absolute;
-      left: 0;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .glitch::before {
-      animation: glitchTop 0.3s infinite linear alternate-reverse;
-      color: white;
-      clip: rect(0, 900px, 0, 0);
-      z-index: -1;
-    }
-
-    .glitch::after {
-      animation: glitchBottom 0.25s infinite linear alternate-reverse;
-      color: white;
-      clip: rect(0, 900px, 0, 0);
-      z-index: -2;
-    }
-
-    @keyframes flicker {
-      0% { opacity: 0.95; }
-      20% { opacity: 0.3; }
-      40% { opacity: 0.6; }
-      60% { opacity: 0.2; }
-      80% { opacity: 0.85; }
-      100% { opacity: 1; }
-    }
-
-    @keyframes glitchTop {
-      0% { transform: translate(0, 0); clip: rect(0, 9999px, 0, 0); }
-      10% { transform: translate(-8px, -2px); clip: rect(0, 9999px, 12px, 0); }
-      20% { transform: translate(-15px, 5px); clip: rect(12px, 9999px, 22px, 0); }
-      30% { transform: translate(10px, -4px); clip: rect(5px, 9999px, 15px, 0); }
-      40% { transform: translate(-5px, 6px); clip: rect(0, 9999px, 30px, 0); }
-      100% { transform: translate(4px, 2px); clip: rect(0, 9999px, 0, 0); }
-    }
-
-    @keyframes glitchBottom {
-      0% { transform: translate(0, 0); clip: rect(0, 9999px, 0, 0); }
-      10% { transform: translate(6px, 6px); clip: rect(15px, 9999px, 25px, 0); }
-      20% { transform: translate(-10px, -4px); clip: rect(25px, 9999px, 35px, 0); }
-      30% { transform: translate(8px, 3px); clip: rect(35px, 9999px, 45px, 0); }
-      40% { transform: translate(-6px, -5px); clip: rect(10px, 9999px, 20px, 0); }
-      100% { transform: translate(0, 0); clip: rect(0, 9999px, 0, 0); }
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>n0signal — portfolio</title>
+  <meta name="description" content="Cyber Security Portfolio — projects, blog, and knowledge base.">
+  <link rel="icon" href="/assets/logo.svg">
+  <!-- Global styles -->
+  <link rel="stylesheet" href="/assets/style.css">
+  <!-- Homepage-only styles -->
+  <link rel="stylesheet" href="/assets/home.css">
 </head>
 <body>
-  <div class="glitch">n0signal</div>
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="/"><img src="/assets/logo.svg" alt=""><b>n0signal</b></a>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav">☰</button>
+      <nav id="nav" aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="https://0xkb.n0signal.dev">Knowledge&nbsp;Base</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div>
+        <div class="kicker">Cyber Security Portfolio</div>
+        <h1 class="title"><span style="color:#cbbaff">n0signal</span> // break · analyze · defend [WIP]</h1>
+        <p class="lead">Hands-on projects and write-ups from my shift into cybersecurity.</p>
+        <div class="cta">
+          <a class="btn" href="/projects">View Projects</a>
+          <a class="btn alt" href="https://0xkb.n0signal.dev">Open Knowledge Base</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Featured Projects ===== -->
+  <section class="wrap">
+    <h2>Featured Projects</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="kicker-small">Test 1</span>
+        <h3>Arch Linux · Minimal Secure Install</h3>
+        <p>Install Arch.</p>
+        <p><a href="/projects/arch-secure">Read more →</a></p>
+      </article>
+      <article class="card">
+        <span class="kicker-small">Test 2</span>
+        <h3>Breaking LLMs</h3>
+        <p>Learn with gandalf.</p>
+        <p><a href="/projects/llm-jb">Read more →</a></p>
+      </article>
+      <article class="card">
+        <span class="kicker-small">Test 3</span>
+        <h3>Homelab Setup</h3>
+        <p>Sick homelab set up</p>
+        <p><a href="/projects/homelab">Read more →</a></p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Blog / Resources ===== -->
+  <section class="wrap">
+    <h2>Latest Posts</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="kicker-small">Test 4</span>
+        <h3>Why?</h3>
+        <p>Just Why</p>
+        <p><a href="/blog/why">Read more →</a></p>
+      </article>
+      <article class="card">
+        <span class="kicker-small">Test 5</span>
+        <h3>Why i moved from lighting into cyber</h3>
+        <p>Need to learn more.</p>
+        <p><a href="/blog/jobswitch">Read more →</a></p>
+      </article>
+      <article class="card">
+        <span class="kicker-small">Test 6</span>
+        <h3>Ethernet Punch Down</h3>
+        <p>How do punchdown netword?</p>
+        <p><a href="/blog/ethernet">Open →</a></p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="wrap">
+      © <span id="y">2025</span> n0signal · <a href="mailto:contact@n0signal.dev">contact@n0signal.dev</a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const btn = document.getElementById('navToggle');
+    const nav = document.getElementById('nav');
+    btn?.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
