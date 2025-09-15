@@ -1,16 +1,21 @@
 title: n0signal
 url: https://n0signal.dev
-baseurl: ""               # keep "" for a custom domain or user site
-permalink: pretty         # /path/ instead of .html
+baseurl: ""
+permalink: pretty
 
-# Collections for Projects
+# projects 
 collections:
   projects:
     output: true
+    source: projects/_projects
     permalink: /projects/:slug/
 
-# Defaults so projects use the project layout
 defaults:
-  - scope: { path: "", type: "projects" }
+  - scope: { path: "", type: projects }
+    values: { layout: project }
+
+  # posts
+  - scope: { path: "blog/_posts", type: posts }
     values:
-      layout: project
+      layout: post
+      permalink: /blog/:slug/
