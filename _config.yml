@@ -3,8 +3,7 @@ url: https://n0signal.dev
 baseurl: ""
 permalink: pretty
 
-collections_dir: projects
-
+# Projects
 collections:
   projects:
     output: true
@@ -17,8 +16,9 @@ defaults:
     values:
       layout: project
 
+# Blog
   - scope:
-      path: "blog/_posts"       
+      path: ""
       type: posts
     values:
       layout: post
