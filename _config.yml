@@ -4,7 +4,7 @@ baseurl: ""
 permalink: pretty
 
 # projects 
-collections_dir: projects
+#collections_dir: projects
 
 collections:
   projects:
