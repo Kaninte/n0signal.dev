@@ -4,16 +4,17 @@ baseurl: ""
 permalink: pretty
 
 # projects 
+collections_dir: projects
+
 collections:
   projects:
     output: true
-    source: projects/_projects
     permalink: /projects/:slug/
 
 defaults:
-  - scope: { path: "", type: project }
+  - scope: { path: "", type: projects }
     values: { layout: project }
-
+    
   # posts
   - scope: { path: "blog/_posts", type: posts }
     values:
