@@ -18,7 +18,7 @@ defaults:
       layout: project
 
   - scope:
-      path: ""       
+      path: "../blog/_posts"       
       type: posts
     values:
       layout: post
