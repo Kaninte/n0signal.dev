@@ -12,11 +12,16 @@ collections:
     permalink: /projects/:slug/
 
 defaults:
-  - scope: { path: "", type: projects }
-    values: { layout: project }
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: project
     
   # posts
-  - scope: { path: "blog/_posts", type: posts }
+  - scope:          
+      path: ""
+      type: posts
     values:
       layout: post
       permalink: /blog/:slug/
