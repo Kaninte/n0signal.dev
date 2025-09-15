@@ -11,7 +11,7 @@ collections:
     permalink: /projects/:slug/
 
 defaults:
-  - scope: { path: "", type: projects }
+  - scope: { path: "", type: project }
     values: { layout: project }
 
   # posts
