@@ -1,0 +1,26 @@
+---
+layout: default
+title: Projects
+permalink: /projects/
+---
+<section class="wrap">
+  <div class="kicker">Projects</div>
+  <h1 class="title">Hands-on builds & write-ups</h1>
+  <p class="prose">Practical work—homelab, secure installs, CTFs, tooling.</p>
+</section>
+
+<section class="wrap">
+  <div class="grid">
+    {% assign items = site.projects | sort: "date" | reverse %}
+    {% for p in items %}
+      <article class="card">
+        {% if p.category %}
+          <span class="kicker-small {{ p.color | default: '' }}">{{ p.category }}</span>
+        {% endif %}
+        <h3><a href="{{ p.url }}">{{ p.title }}</a></h3>
+        <p>{{ p.lead | default: p.excerpt | strip_html | truncate: 140 }}</p>
+        <p><a href="{{ p.url }}">Read more →</a></p>
+      </article>
+    {% endfor %}
+  </div>
+</section>
