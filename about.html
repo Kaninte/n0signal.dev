@@ -1,81 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>About — n0signal</title>
-  <meta name="description" content="About n0signal — background, journey, and focus.">
-  <link rel="icon" href="/assets/logo.svg">
-  <!-- Global styles -->
-  <link rel="stylesheet" href="/assets/style.css">
-</head>
-<body>
-  <!-- ===== Header ===== -->
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="/"><img src="/assets/logo.png" alt="n0signal"></a>
-      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav">☰</button>
-      <nav id="nav" aria-label="Primary">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about" aria-current="page">About</a></li>
-          <li><a href="/projects">Projects</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="https://0xkb.n0signal.dev">Knowledge&nbsp;Base</a></li>
-        </ul>
-      </nav>
+---
+layout: default
+title: About
+description: "About n0signal — background, journey, and focus."
+home_css: true   <!-- quick win: reuse the .hero styling from home.css for now -->
+---
+
+<!-- ===== About Hero ===== -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="kicker">About</div>
+      <h1 class="title">Who is <span style="color:#cbbaff">n0signal</span>?</h1>
+      <p class="lead">I’m a live events technician turned cybersecurity learner, documenting my journey from backstage to digital defense.</p>
     </div>
-  </header>
+  </div>
+</section>
 
-  <!-- ===== About Hero ===== -->
-  <section class="hero">
-    <div class="wrap hero-inner">
-      <div>
-        <div class="kicker">About</div>
-        <h1 class="title">Who is <span style="color:#cbbaff">n0signal</span>?</h1>
-        <p class="lead">I’m a live events technician turned cybersecurity learner, documenting my journey from backstage to digital defense.</p>
-      </div>
-    </div>
-  </section>
+<!-- ===== Main Content ===== -->
+<section class="wrap prose">
+  <h2>Background</h2>
+  <p>
+    I started out in technical theatre and live events, designing and running lighting, sound, and networked control systems. Working in that world meant dealing with high-pressure
+    moments where things had to work — and it taught me how to stay composed, solve problems fast, and keep systems reliable when the stakes were high.
+  </p>
 
-  <!-- ===== Main Content ===== -->
-  <section class="wrap">
-    <h2>Background</h2>
-    <p>
-      I started out in technical theatre and live events, designing and running lighting, sound, and networked control systems. Working in that world meant dealing with high-pressure 
-      moments where things had to work — and it taught me how to stay composed, solve problems fast, and keep systems reliable when the stakes were high.
-    </p>
+  <h2>Why Cyber Security?</h2>
+  <p>
+    The same mindset that kept shows alive now drives my cybersecurity work: anticipating problems, breaking things apart to understand them,
+    and building reliable solutions. I’ve been expanding my skills through TryHackMe, HackTheBox, homelab experiments, and formal study.
+  </p>
 
-    <h2>Why Cyber Security?</h2>
-    <p>
-      The same mindset that kept shows alive now drives my cybersecurity work: anticipating problems, breaking things apart to understand them,
-      and building reliable solutions. I’ve been expanding my skills through TryHackMe, HackTheBox, homelab experiments, and formal study.
-    </p>
-
-    <h2>What This Site Is</h2>
-    <p>
-      This portfolio is where I share <a href="/projects">projects</a>, write-ups on challenges and labs, and longer reflections in the <a href="/blog">blog</a>.
-      I also maintain a structured <a href="https://0xkb.n0signal.dev">knowledge base</a> of my learning process. It’s a work in progress, but it’s my way of stacking wins and tracking growth.
-    </p>
-  </section>
-
-  <!-- ===== Footer ===== -->
-  <footer>
-    <div class="wrap">
-      © <span id="y">2025</span> n0signal · <a href="mailto:contact@n0signal.dev">contact@n0signal.dev</a>
-    </div>
-  </footer>
-
-  <script>
-    // Mobile nav toggle
-    const btn = document.getElementById('navToggle');
-    const nav = document.getElementById('nav');
-    btn?.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    // Year
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+  <h2>What This Site Is</h2>
+  <p>
+    This portfolio is where I share <a href="/projects">projects</a>, write-ups on challenges and labs, and longer reflections in the <a href="/blog">blog</a>.
+    I also maintain a structured <a href="https://0xkb.n0signal.dev">knowledge base</a> of my learning process. It’s a work in progress, but it’s my way of stacking wins and tracking growth.
+  </p>
+</section>
