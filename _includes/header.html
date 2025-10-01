@@ -1,0 +1,15 @@
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/"><img src="/assets/logo.png" alt="n0signal"></a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav">☰</button>
+    <nav id="nav" aria-label="Primary">
+      <ul>
+        <li><a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a></li>
+        <li><a href="/about" {% if page.url contains "/about" %}aria-current="page"{% endif %}>About</a></li>
+        <li><a href="/projects" {% if page.url contains "/projects" %}aria-current="page"{% endif %}>Projects</a></li>
+        <li><a href="/blog" {% if page.url contains "/blog" %}aria-current="page"{% endif %}>Blog</a></li>
+        <li><a href="https://0xkb.n0signal.dev">Knowledge&nbsp;Base</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
