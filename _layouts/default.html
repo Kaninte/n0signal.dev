@@ -12,33 +12,11 @@
   {% if page.home_css %}<link rel="stylesheet" href="/assets/home.css">{% endif %}
 </head>
 <body>
-  <!-- ===== Header ===== -->
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="/"><img src="/assets/logo.png" alt="n0signal"></a>
-      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav">☰</button>
-      <nav id="nav" aria-label="Primary">
-        <ul>
-          <li><a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Home</a></li>
-          <li><a href="/about" {% if page.url == "/about/" %}aria-current="page"{% endif %}>About</a></li>
-          <li><a href="/projects/" {% if page.url contains "/projects/" and page.collection != "posts" %}aria-current="page"{% endif %}>Projects</a></li>
-          <li><a href="/blog/" {% if page.url contains "/blog/" %}aria-current="page"{% endif %}>Blog</a></li>
-          <li><a href="https://0xkb.n0signal.dev">Knowledge&nbsp;Base</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  {% include header.html %}
 
-  <!-- ===== Page Content ===== -->
   {{ content }}
 
-  <!-- ===== Footer ===== -->
-  <footer>
-    <div class="wrap">
-      © <span id="y">2025</span> n0signal · 
-      <a href="mailto:contact@n0signal.dev">contact@n0signal.dev</a>
-    </div>
-  </footer>
+  {% include footer.html %}
 
   <script>
     // Mobile nav toggle
@@ -49,7 +27,8 @@
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
     // Auto-update year
-    document.getElementById('y').textContent = new Date().getFullYear();
+    const y = document.getElementById('y');
+    if (y) y.textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
