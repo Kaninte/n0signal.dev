@@ -77,4 +77,8 @@ footer{border-top:1px solid var(--border); margin-top:2rem; color:var(--muted); 
 .lead{ color:var(--muted); max-width:60ch; margin:0 0 1rem }
 .lead.small{ font-size:1rem; max-width:65ch }
 
+/* Add space between stacked sections */
+body > section.wrap + section.wrap{
+  margin-top: 2.4rem !important;
+}
 
