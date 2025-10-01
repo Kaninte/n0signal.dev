@@ -4,7 +4,7 @@
     radial-gradient(60% 80% at 70% 0%, rgba(141,107,255,.18), transparent 60%),
     radial-gradient(40% 70% at -10% 20%, rgba(85,50,255,.18), transparent 60%),
     linear-gradient(180deg, #0b0f19 0%, #0a0b0f 100%);
-  border-bottom:1px solid var(--border);
+  /* border-bottom:1px solid var(--border); */
   padding:6rem 0 5rem; /* buffer top & bottom */
 }
 .hero-inner{display:grid; gap:2rem; grid-template-columns: 1fr; align-items:center}
@@ -28,4 +28,5 @@
 .card h3{margin:.1rem 0 .2rem; font-size:1.05rem}
 .card p{color:var(--muted); margin:0}
 .kicker-small{color:#cbbaff; font-size:.82rem}
+
 
