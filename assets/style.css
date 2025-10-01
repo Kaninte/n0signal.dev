@@ -58,7 +58,7 @@ nav a:hover{background:rgba(141,107,255,.16)}
 .btn:hover{filter:brightness(1.1)}
 
 /* Base sections & footer */
-section{padding:1.6rem 0}
+section{padding:2.4rem 0}
 h2{font-size:1.25rem; letter-spacing:.02em; margin:.2rem 0 .9rem; border-bottom:1px solid var(--border); padding-bottom:.35rem}
 footer{border-top:1px solid var(--border); margin-top:2rem; color:var(--muted); padding:1.2rem 0 2rem; font-size:.95rem}
 
@@ -76,11 +76,4 @@ footer{border-top:1px solid var(--border); margin-top:2rem; color:var(--muted); 
 /* Lead text */
 .lead{ color:var(--muted); max-width:60ch; margin:0 0 1rem }
 .lead.small{ font-size:1rem; max-width:65ch }
-
-/* Section spacing */
-section + section {
-  margin-top:2.5rem;   /* pushes the next section down */
-}
-
-
 
