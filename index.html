@@ -1,105 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>n0signal — portfolio</title>
-  <meta name="description" content="Cyber Security Portfolio — projects, blog, and knowledge base.">
-  <link rel="icon" href="/assets/logo.svg">
-  <!-- Global styles -->
-  <link rel="stylesheet" href="/assets/style.css">
-  <!-- Homepage-only styles -->
-  <link rel="stylesheet" href="/assets/home.css">
-</head>
-<body>
-  
-  <!-- ===== Header ===== -->
-  <header>
-    {% include header.html %}
-  </header>
-  
-  <!-- ===== Hero ===== -->
-  <section class="hero">
-    <div class="wrap hero-inner">
-      <div>
-        <div class="kicker">Cyber Security Portfolio</div>
-        <h1 class="title"><span style="color:#cbbaff">n0signal</span> // break · analyze · defend [WIP]</h1>
-        <p class="lead">Hands-on projects and write-ups from my shift into cybersecurity.</p>
-        <div class="cta">
-          <a class="btn" href="/projects">View Projects</a>
-          <a class="btn alt" href="https://0xkb.n0signal.dev">Open Knowledge Base</a>
-        </div>
+---
+layout: default
+title: n0signal — portfolio
+description: "Cyber Security Portfolio — projects, blog, and knowledge base."
+home_css: true
+---
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="kicker">Cyber Security Portfolio</div>
+      <h1 class="title"><span style="color:#cbbaff">n0signal</span> // break · analyze · defend [WIP]</h1>
+      <p class="lead">Hands-on projects and write-ups from my shift into cybersecurity.</p>
+      <div class="cta">
+        <a class="btn" href="/projects">View Projects</a>
+        <a class="btn alt" href="https://0xkb.n0signal.dev">Open Knowledge Base</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== Featured Projects ===== -->
-  <section class="wrap">
-    <h2>Featured Projects</h2>
-    <div class="grid">
-      <article class="card">
-        <span class="kicker-small">Test 1</span>
-        <h3>Arch Linux · Minimal Secure Install</h3>
-        <p>Install Arch.</p>
-        <p><a href="/projects/arch-secure">Read more →</a></p>
-      </article>
-      <article class="card">
-        <span class="kicker-small">Test 2</span>
-        <h3>Breaking LLMs</h3>
-        <p>Learn with gandalf.</p>
-        <p><a href="/projects/llm-jb">Read more →</a></p>
-      </article>
-      <article class="card">
-        <span class="kicker-small">Test 3</span>
-        <h3>Homelab Setup</h3>
-        <p>Sick homelab set up</p>
-        <p><a href="/projects/homelab">Read more →</a></p>
-      </article>
-    </div>
-  </section>
+<!-- ===== Featured Projects ===== -->
+<section class="wrap">
+  <h2>Featured Projects</h2>
+  <div class="grid">
+    <article class="card">
+      <span class="kicker-small">Test 1</span>
+      <h3>Arch Linux · Minimal Secure Install</h3>
+      <p>Install Arch.</p>
+      <p><a href="/projects/arch-secure">Read more →</a></p>
+    </article>
+    <article class="card">
+      <span class="kicker-small">Test 2</span>
+      <h3>Breaking LLMs</h3>
+      <p>Learn with gandalf.</p>
+      <p><a href="/projects/llm-jb">Read more →</a></p>
+    </article>
+    <article class="card">
+      <span class="kicker-small">Test 3</span>
+      <h3>Homelab Setup</h3>
+      <p>Sick homelab set up</p>
+      <p><a href="/projects/homelab">Read more →</a></p>
+    </article>
+  </div>
+</section>
 
-  <!-- ===== Blog / Resources ===== -->
-  <section class="wrap">
-    <h2>Latest Posts</h2>
-    <div class="grid">
-      <article class="card">
-        <span class="kicker-small">Test 4</span>
-        <h3>Why?</h3>
-        <p>Just Why</p>
-        <p><a href="/blog/why">Read more →</a></p>
-      </article>
-      <article class="card">
-        <span class="kicker-small">Test 5</span>
-        <h3>Why i moved from lighting into cyber</h3>
-        <p>Need to learn more.</p>
-        <p><a href="/blog/jobswitch">Read more →</a></p>
-      </article>
-      <article class="card">
-        <span class="kicker-small">Test 6</span>
-        <h3>Ethernet Punch Down</h3>
-        <p>How do punchdown netword?</p>
-        <p><a href="/blog/ethernet">Open →</a></p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ===== Footer ===== -->
-  <footer>
-    <div class="wrap">
-      © <span id="y">2025</span> n0signal · <a href="mailto:contact@n0signal.dev">contact@n0signal.dev</a>
-    </div>
-  </footer>
-
-  <script>
-    // Mobile nav toggle
-    const btn = document.getElementById('navToggle');
-    const nav = document.getElementById('nav');
-    btn?.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    // Year
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+<!-- ===== Blog / Resources ===== -->
+<section class="wrap">
+  <h2>Latest Posts</h2>
+  <div class="grid">
+    <article class="card">
+      <span class="kicker-small">Test 4</span>
+      <h3>Why?</h3>
+      <p>Just Why</p>
+      <p><a href="/blog/why">Read more →</a></p>
+    </article>
+    <article class="card">
+      <span class="kicker-small">Test 5</span>
+      <h3>Why i moved from lighting into cyber</h3>
+      <p>Need to learn more.</p>
+      <p><a href="/blog/jobswitch">Read more →</a></p>
+    </article>
+    <article class="card">
+      <span class="kicker-small">Test 6</span>
+      <h3>Ethernet Punch Down</h3>
+      <p>How do punchdown netword?</p>
+      <p><a href="/blog/ethernet">Open →</a></p>
+    </article>
+  </div>
+</section>
