@@ -111,3 +111,26 @@ footer{
 body > section.wrap + section.wrap{margin-top:2rem !important;}
 .hero + section.wrap{padding-top:2.4rem !important;}
 section.wrap > h2{margin-top:.2rem; margin-bottom:1.4rem;}
+
+/* === Project card meta / type badge === */
+.meta{
+  display:flex; align-items:center; gap:.5rem;
+  margin:.1rem 0 .2rem; opacity:.95;
+}
+.meta small{ color:var(--muted) }
+.meta .dot{ opacity:.5 }
+
+.badge{
+  display:inline-block;
+  font-size:.82rem; line-height:1;
+  padding:.35rem .55rem;
+  border:1px solid var(--border);
+  border-radius:999px;
+  opacity:.95;
+}
+
+/* colour variants (support both 'purp' and 'purple') */
+.badge.red{ color:var(--red) }
+.badge.blue{ color:var(--blue) }
+.badge.purp,
+.badge.purple{ color:var(--purple) }
