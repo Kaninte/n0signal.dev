@@ -115,22 +115,36 @@ section.wrap > h2{margin-top:.2rem; margin-bottom:1.4rem;}
 /* === Project card meta / type badge === */
 .meta{
   display:flex; align-items:center; gap:.5rem;
-  margin:.1rem 0 .2rem; opacity:.95;
+  margin:.1rem 0 .3rem; opacity:.95;
 }
 .meta small{ color:var(--muted) }
 .meta .dot{ opacity:.5 }
 
+/* Square type badge with tinted background */
 .badge{
   display:inline-block;
-  font-size:.82rem; line-height:1;
-  padding:.35rem .55rem;
+  font-size:.82rem;
+  font-weight:600;
+  line-height:1.2;
+  padding:.25rem .5rem;
   border:1px solid var(--border);
-  border-radius:999px;
-  opacity:.95;
+  border-radius:4px; /* square corners */
 }
 
-/* colour variants (support both 'purp' and 'purple') */
-.badge.red{ color:var(--red) }
-.badge.blue{ color:var(--blue) }
+/* Colour variants with subtle tinted background */
+.badge.red{
+  color:var(--red);
+  background:rgba(255,77,109,.12);
+  border-color:rgba(255,77,109,.25);
+}
+.badge.blue{
+  color:var(--blue);
+  background:rgba(77,166,255,.12);
+  border-color:rgba(77,166,255,.25);
+}
 .badge.purp,
-.badge.purple{ color:var(--purple) }
+.badge.purple{
+  color:var(--purple);
+  background:rgba(141,107,255,.12);
+  border-color:rgba(141,107,255,.25);
+}
