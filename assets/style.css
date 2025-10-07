@@ -120,31 +120,29 @@ section.wrap > h2{margin-top:.2rem; margin-bottom:1.4rem;}
 .meta small{ color:var(--muted) }
 .meta .dot{ opacity:.5 }
 
-/* Square type badge with tinted background */
-.badge{
+/* Square badge with tinted bg (force if something else is winning) */
+article.card .badge{
   display:inline-block;
-  font-size:.82rem;
-  font-weight:600;
-  line-height:1.2;
+  font-size:.82rem; font-weight:600; line-height:1.2;
   padding:.25rem .5rem;
   border:1px solid var(--border);
-  border-radius:4px; /* square corners */
+  border-radius:4px !important;   /* square corners */
 }
 
-/* Colour variants with subtle tinted background */
-.badge.red{
+/* Color variants (supports red/blue/purp/purple) */
+article.card .badge.red{
   color:var(--red);
-  background:rgba(255,77,109,.12);
+  background-color:rgba(255,77,109,.12);
   border-color:rgba(255,77,109,.25);
 }
-.badge.blue{
+article.card .badge.blue{
   color:var(--blue);
-  background:rgba(77,166,255,.12);
+  background-color:rgba(77,166,255,.12);
   border-color:rgba(77,166,255,.25);
 }
-.badge.purp,
-.badge.purple{
+article.card .badge.purp,
+article.card .badge.purple{
   color:var(--purple);
-  background:rgba(141,107,255,.12);
+  background-color:rgba(141,107,255,.12);
   border-color:rgba(141,107,255,.25);
 }
