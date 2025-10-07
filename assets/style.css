@@ -147,95 +147,107 @@ article.card .badge.purple{
   border-color:rgba(141,107,255,.25);
 }
 
-/* ===== 404 (neon outline + centered) ===== */
+/* ===== refined 404 ===== */
 .error404{
   min-height:70vh;
   display:grid; place-items:center;
   text-align:center;
   padding:6rem 0;
   background:
-    radial-gradient(60% 90% at 70% 0%, rgba(141,107,255,.10), transparent 60%),
-    linear-gradient(180deg, #0b0f19 0%, #0a0b0f 100%);
+    radial-gradient(60% 100% at 70% 0%, rgba(141,107,255,.12), transparent 60%),
+    radial-gradient(40% 80% at 0% 20%, rgba(124,255,255,.10), transparent 60%),
+    linear-gradient(180deg, #0a0b0f 0%, #08090d 100%);
 }
-.error-stack{ display:flex; flex-direction:column; align-items:center; gap:1.2rem }
+.error-stack{
+  display:flex; flex-direction:column; align-items:center; gap:1.2rem;
+}
 
-/* Big outlined 404 with chromatic edges */
+/* big outlined 404 */
 .num{
   position:relative;
   font-weight:900;
-  letter-spacing:.03em;
-  font-size:clamp(5rem, 20vw, 18rem);
+  letter-spacing:.02em;
+  font-size:clamp(5rem, 18vw, 16rem);
   line-height:.9;
   color:transparent;
-  -webkit-text-stroke: 2px var(--border);                 /* base outline */
+  -webkit-text-stroke:1.8px rgba(141,107,255,.4);
   text-shadow:
-    0 0 0 var(--fg),                                     /* keeps glyph hinting */
-    0 0 18px rgba(141,107,255,.18);                      /* soft glow */
+    0 0 12px rgba(141,107,255,.25),
+    0 0 24px rgba(124,255,255,.15);
 }
-/* purple & cyan ghosts */
+
+/* layered chromatic edges */
 .num::before,
 .num::after{
   content:"404";
   position:absolute; inset:0;
   color:transparent;
-  -webkit-text-stroke: 2px var(--purple);
-  opacity:.85; mix-blend-mode:screen; pointer-events:none;
+  pointer-events:none;
+  opacity:.8;
+}
+.num::before{
+  -webkit-text-stroke:1.8px var(--purple);
+  transform:translate(1.5px,-1.5px);
+  filter:blur(.4px);
 }
 .num::after{
-  -webkit-text-stroke: 2px var(--cyan);
-  opacity:.7;
+  -webkit-text-stroke:1.8px var(--cyan);
+  transform:translate(-1.5px,1.5px);
+  filter:blur(.4px);
 }
-/* small offsets create the neon edge */
-.num::before{ transform:translate(3px,-2px) }
-.num::after { transform:translate(-3px,2px) }
 
-/* “PAGE NOT FOUND” band across the number */
+/* smooth analog-style motion */
+.glitch404{
+  animation: g-float 3s ease-in-out infinite alternate;
+}
+.glitch404::before{ animation: g-shift 2.5s ease-in-out infinite alternate; }
+.glitch404::after { animation: g-shift 2.5s ease-in-out infinite alternate-reverse; }
+
+@keyframes g-float{
+  0%{ transform:translate(0,0) }
+  50%{ transform:translate(.8px,-.8px) }
+  100%{ transform:translate(0,0) }
+}
+@keyframes g-shift{
+  0%{ transform:translate(1px,-1px) }
+  50%{ transform:translate(-1px,1px) }
+  100%{ transform:translate(1px,-1px) }
+}
+
+/* text band */
 .label{
-  position:relative;
-  margin-top:-3.5rem;   /* pulls it onto the 404 */
-  padding:.6rem 1rem .5rem;
+  margin-top:-3rem;
+  padding:.4rem 1.4rem .35rem;
   font-weight:800;
   letter-spacing:.35em;
   text-transform:uppercase;
-  font-size:clamp(.9rem, 2.2vw, 1.6rem);
-  background: transparent;
-  color: var(--fg);
-  text-shadow: 0 1px 0 rgba(0,0,0,.25);
+  font-size:clamp(.9rem,2vw,1.4rem);
+  color:var(--fg);
+  background:rgba(15,18,26,.75);
+  border:1px solid rgba(141,107,255,.25);
+  backdrop-filter:blur(3px);
+  text-shadow:0 1px 0 rgba(0,0,0,.4);
 }
 
-/* Hollow neon button */
+/* subtle neon hollow button */
 .btn.hollow{
-  text-transform:uppercase; letter-spacing:.12em; font-weight:800;
-  border:1px solid rgba(255,77,109,.8);   /* pink-ish edge to match reference */
+  margin-top:.6rem;
+  text-transform:uppercase;
+  font-weight:700;
+  letter-spacing:.1em;
+  padding:.7rem 1.6rem;
+  border:1px solid rgba(141,107,255,.6);
+  color:var(--fg);
   background:transparent;
-  padding:.7rem 1.4rem;
-  box-shadow: 0 0 0 1px rgba(255,77,109,.35) inset;
+  transition:all .25s ease;
 }
 .btn.hollow:hover{
-  background:rgba(255,77,109,.08);
-  filter:none;
+  border-color:var(--cyan);
+  color:var(--cyan);
+  background:rgba(124,255,255,.05);
 }
 
-/* Strong but tasteful glitch (brief jitter + slice) */
-.glitch404{
-  animation: g-shift 1100ms steps(2,end) infinite;
-}
-.glitch404::before{ animation: g-scan 1200ms steps(4,end) infinite }
-.glitch404::after { animation: g-scan 1300ms steps(4,end) infinite reverse }
-
-@keyframes g-shift{
-  0%,100% { transform:translate(0,0) }
-  45%     { transform:translate(1px,-1px) }
-  55%     { transform:translate(-1px,1px) }
-}
-@keyframes g-scan{
-  0%   { clip-path: inset(0 0 80% 0) }
-  30%  { clip-path: inset(20% 0 50% 0) }
-  60%  { clip-path: inset(55% 0 15% 0) }
-  100% { clip-path: inset(0 0 0 0) }
-}
-
-/* reduce-motion friendly */
+/* motion-safe */
 @media (prefers-reduced-motion: reduce){
   .glitch404, .glitch404::before, .glitch404::after{ animation:none }
 }
