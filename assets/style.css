@@ -147,116 +147,123 @@ article.card .badge.purple{
   border-color:rgba(141,107,255,.25);
 }
 
-/* ===== refined 404 (safe scoped override) ===== */
-.error404 {
-  min-height: 70vh;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  padding: 6rem 0;
+/* ===== 404 (neon outline + centered) ===== */
+/* ===== refined 404 ===== */
+#error404.error404{
+  min-height:70vh;
+  display:grid; place-items:center;
+  text-align:center;
+  padding:6rem 0;
   background:
     radial-gradient(60% 100% at 70% 0%, rgba(141,107,255,.12), transparent 60%),
     radial-gradient(40% 80% at 0% 20%, rgba(124,255,255,.10), transparent 60%),
     linear-gradient(180deg, #0a0b0f 0%, #08090d 100%);
 }
-
-.error404 .error-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.2rem;
+#error404 .error-stack{
+  display:flex; flex-direction:column; align-items:center; gap:1.2rem;
 }
 
-/* === scoped glitch number === */
-.error404 .num {
-  font-family: "JetBrains Mono", monospace;
-  font-weight: 700;
-  font-size: clamp(5rem, 22vw, 18rem);
-  line-height: 1;
-  color: #fff; /* solid white core */
-  letter-spacing: -0.04em;
-  position: relative;
+/* big outlined 404 */
+.num{
+  position:relative;
+  font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-weight:500;
+  letter-spacing:.02em;
+  font-size:clamp(5rem, 18vw, 16rem);
+  line-height:.9;
+  color:#fff;     
+  -webkit-text-stroke:1.8px rgba(141,107,255,.4);
   text-shadow:
-    0 0 8px rgba(141,107,255,.35),
-    0 0 18px rgba(124,255,255,.25);
-  animation: flicker404 2.8s infinite;
-}
-@keyframes flicker404 {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-  20%, 24%, 55% { opacity: .35; }
+    0 0 12px rgba(141,107,255,.25),
+    0 0 24px rgba(124,255,255,.15);
+  animation:flicker404 2.8s infinite;
 }
 
-.error404 .num::before,
-.error404 .num::after {
-  content: "404";
-  position: absolute;
-  inset: 0;
-  color: transparent;
-  -webkit-text-stroke: 1.8px;
-  opacity: .85;
-  mix-blend-mode: screen;
-  animation: glitchShift404 2s infinite linear alternate-reverse;
-  pointer-events: none;
-}
-.error404 .num::before {
-  -webkit-text-stroke-color: #8d6bff;
-  transform: translate(-2px, 0);
-  animation-delay: .1s;
-}
-.error404 .num::after {
-  -webkit-text-stroke-color: #7cf;
-  transform: translate(2px, 0);
-  animation-delay: .25s;
-}
-@keyframes glitchShift404 {
-  0% { clip-path: inset(20% 0 70% 0); transform: translate(-2px, -1px); }
-  10% { clip-path: inset(80% 0 10% 0); transform: translate(2px, 1px); }
-  20% { clip-path: inset(40% 0 50% 0); transform: translate(-1px, 0); }
-  30% { clip-path: inset(70% 0 20% 0); transform: translate(1px, -1px); }
-  40% { clip-path: inset(0 0 100% 0); transform: translate(0, 1px); }
-  50% { clip-path: inset(60% 0 30% 0); transform: translate(-2px, 0); }
-  60% { clip-path: inset(10% 0 80% 0); transform: translate(2px, -2px); }
-  70% { clip-path: inset(90% 0 5% 0); transform: translate(-1px, 1px); }
-  80% { clip-path: inset(50% 0 40% 0); transform: translate(1px, 0); }
-  90% { clip-path: inset(30% 0 60% 0); transform: translate(0, -1px); }
-  100%{ clip-path: inset(10% 0 80% 0); transform: translate(0, 0); }
+@keyframes flicker404{
+  0%,19%,21%,23%,25%,54%,56%,100%{opacity:1}
+  20%,24%,55%{opacity:.35}
 }
 
-/* === scoped label + button === */
-.error404 .label {
-  margin-top: -3rem;
-  padding: .4rem 1.4rem .35rem;
-  font-weight: 800;
-  letter-spacing: .35em;
-  text-transform: uppercase;
-  font-size: clamp(.9rem, 2vw, 1.4rem);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,.3);
-  background: transparent;
+/* thin purple/cyan edge “ghosts” that slice/jitter */
+#error404 .num::before,
+#error404 .num::after{
+  content:"404";
+  position:absolute; inset:0;
+  color:transparent;
+  -webkit-text-stroke:1.6px;     /* edges only */
+  mix-blend-mode:screen;
+  opacity:.9;
+  pointer-events:none;
+  animation:glitchShift404 2s infinite linear alternate-reverse;
+}
+#error404 .num::before{
+  -webkit-text-stroke-color:#8d6bff;  /* purple */
+  transform:translate(-2px,0);
+  animation-delay:.1s;
+}
+#error404 .num::after{
+  -webkit-text-stroke-color:#7cf;     /* cyan */
+  transform:translate(2px,0);
+  animation-delay:.25s;
+}
+@keyframes glitchShift404{
+  0%  { clip-path: inset(20% 0 70% 0); transform: translate(-2px,-1px) }
+  10% { clip-path: inset(80% 0 10% 0); transform: translate( 2px, 1px) }
+  20% { clip-path: inset(40% 0 50% 0); transform: translate(-1px, 0  ) }
+  30% { clip-path: inset(70% 0 20% 0); transform: translate( 1px,-1px) }
+  40% { clip-path: inset(0   0 100% 0); transform: translate( 0 , 1px) }
+  50% { clip-path: inset(60% 0 30% 0); transform: translate(-2px, 0  ) }
+  60% { clip-path: inset(10% 0 80% 0); transform: translate( 2px,-2px) }
+  70% { clip-path: inset(90% 0 5%  0); transform: translate(-1px, 1px) }
+  80% { clip-path: inset(50% 0 40% 0); transform: translate( 1px, 0  ) }
+  90% { clip-path: inset(30% 0 60% 0); transform: translate( 0 ,-1px) }
+  100%{ clip-path: inset(10% 0 80% 0); transform: translate( 0 , 0  ) }
 }
 
-.error404 .btn.hollow {
-  margin-top: .6rem;
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: .1em;
-  padding: .7rem 1.6rem;
-  border: 1px solid rgba(141,107,255,.6);
-  color: var(--fg);
-  background: transparent;
-  transition: all .25s ease;
+#error404 .label{
+  margin-top:-3.2rem;           /* overlap the 404 */
+  padding:.55rem 1.6rem .5rem;
+  font-weight:500;
+  letter-spacing:.35em;
+  font-size:clamp(.9rem,2vw,1.4rem);
+  color:#fff;
+  background:transparent;
+  border:1px solid rgba(255,255,255,.3);
 }
-.error404 .btn.hollow:hover {
-  border-color: var(--cyan);
-  color: var(--cyan);
-  background: rgba(124,255,255,.05);
+
+
+/* text band */
+.label{
+  margin-top:-3rem;
+  padding:.4rem 1.4rem .35rem;
+  font-weight:800;
+  letter-spacing:.35em;
+  font-size:clamp(.9rem,2vw,1.4rem);
+  color:var(--fg);
+  background:rgba(15,18,26,.75);
+  border:1px solid rgba(141,107,255,.25);
+  backdrop-filter:blur(3px);
+  text-shadow:0 1px 0 rgba(0,0,0,.4);
+}
+
+/* subtle neon hollow button */
+.btn.hollow{
+  margin-top:.6rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  padding:.5rem 1.2rem;
+  border:1px solid rgba(141,107,255,.6);
+  color:var(--fg);
+  background:transparent;
+  transition:all .25s ease;
+}
+.btn.hollow:hover{
+  border-color:var(--cyan);
+  color:var(--cyan);
+  background:rgba(124,255,255,.05);
 }
 
 /* motion-safe */
-@media (prefers-reduced-motion: reduce) {
-  .error404 .num,
-  .error404 .num::before,
-  .error404 .num::after {
-    animation: none;
-  }
+@media (prefers-reduced-motion: reduce){
+  .glitch404, .glitch404::before, .glitch404::after{ animation:none }
 }
