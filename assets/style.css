@@ -146,3 +146,51 @@ article.card .badge.purple{
   background-color:rgba(141,107,255,.12);
   border-color:rgba(141,107,255,.25);
 }
+
+/* ===== 404 page ===== */
+.hero.error{
+  background:
+    radial-gradient(60% 100% at 60% 0%, rgba(255,77,109,.12), transparent 60%),
+    linear-gradient(180deg, #0b0f19 0%, #0a0b0f 100%);
+  text-align:center;
+  padding:8rem 0 6rem;
+}
+
+/* glitch animation */
+.glitch{
+  position:relative;
+  display:inline-block;
+  animation: flicker404 2s infinite;
+}
+.glitch::before,
+.glitch::after{
+  content:attr(data-text);
+  position:absolute;
+  left:0; top:0;
+  width:100%;
+  overflow:hidden;
+}
+.glitch::before{
+  left:2px; text-shadow:-2px 0 var(--purple);
+  animation: glitchShift404 1s infinite linear alternate;
+}
+.glitch::after{
+  left:-2px; text-shadow:2px 0 var(--cyan);
+  animation: glitchShift404 1s infinite linear alternate-reverse;
+}
+@keyframes glitchShift404{
+  0%{ clip-path:inset(0 0 80% 0) }
+  25%{ clip-path:inset(10% 0 60% 0) }
+  50%{ clip-path:inset(40% 0 40% 0) }
+  75%{ clip-path:inset(70% 0 10% 0) }
+  100%{ clip-path:inset(90% 0 0 0) }
+}
+@keyframes flicker404{
+  0%,19%,21%,23%,25%,54%,56%,100%{opacity:1}
+  20%,24%,55%{opacity:.3}
+}
+
+/* accessibility */
+@media (prefers-reduced-motion: reduce){
+  .glitch::before, .glitch::after{ animation:none; opacity:.4 }
+}
