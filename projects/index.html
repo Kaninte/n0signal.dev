@@ -19,12 +19,18 @@ permalink: /projects/
     {% assign items = site.projects | sort: "date" | reverse %}
     {% for p in items %}
       <article class="card">
+        <h3 class="card-title"><a href="{{ p.url }}">{{ p.title }}</a></h3>
+
         {% if p.category %}
-          <span class="kicker-small {{ p.color | default: '' }}">{{ p.category }}</span>
+          <div class="meta">
+            <span class="badge {{ p.color | default: '' }}">{{ p.category }}</span>
+            {% if p.date %}<span class="dot">•</span><small>{{ p.date | date: "%Y-%m-%d" }}</small>{% endif %}
+          </div>
         {% endif %}
-        <h3><a href="{{ p.url }}">{{ p.title }}</a></h3>
-        <p>{{ p.lead | default: p.excerpt | strip_html | truncate: 140 }}</p>
-        <p><a href="{{ p.url }}">Read more →</a></p>
+
+        <p class="desc">{{ p.lead | default: p.excerpt | strip_html | truncate: 140 }}</p>
+
+        <p class="more"><a href="{{ p.url }}">Read more →</a></p>
       </article>
     {% endfor %}
   </div>
