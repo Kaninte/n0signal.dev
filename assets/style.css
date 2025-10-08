@@ -41,7 +41,7 @@ nav a:hover{background:rgba(141,107,255,.16)}
   nav{position:absolute; left:0; right:0; top:80px; display:none;
       background:var(--panel); border-bottom:1px solid var(--border)}
   nav.open{display:block}
-  nav ul{flex-direction:column; gap:.6rem; padding:.9rem 1rem}
+  nav ul{flex-direction:column; gap:1.4rem; padding:.9rem 1rem}
 }
 
 /* ===== Shared UI ===== */
