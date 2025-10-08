@@ -3,6 +3,9 @@ url: https://n0signal.dev
 baseurl: ""
 permalink: pretty
 
+plugins:
+  - jekyll-sitemap
+
 # Projects
 collections:
   projects:
