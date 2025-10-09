@@ -43,6 +43,13 @@ nav a:hover{background:rgba(141,107,255,.16)}
   nav.open{display:block}
   nav ul{flex-direction:column; gap:1.4rem; padding:.9rem 1rem}
 }
+nav a.nav-kb {
+  background: rgba(124,255,255,.08);
+  color: var(--fg);
+}
+nav a.nav-kb:hover {
+  background: rgba(124,255,255,.16);
+}
 
 /* ===== Shared UI ===== */
 .kicker{color:#cbbaff; letter-spacing:.12em; text-transform:uppercase; font-size:.8rem}
