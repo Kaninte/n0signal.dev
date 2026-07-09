@@ -1,11 +1,14 @@
 ---
-title: "Arch Linux · Minimal Secure Install"
+title: Arch Linux · Minimal Secure Install
 date: 2024-08-15
-kicker: "Ops"
-category: "Defense"
+kicker: Ops
+category: Defense
 color: blue
-lead: "Hardened baseline with disk encryption, minimal services, and reproducible notes."
-tags: [linux, hardening, luks]
+lead: Hardened baseline with disk encryption, minimal services, and reproducible notes.
+tags:
+  - linux
+  - hardening
+  - luks
 ---
 
 ## Goals
