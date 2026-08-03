@@ -1,19 +1,22 @@
 ---
 layout: default
 ---
-<section class="wrap">
-  {% if page.kicker %}
-    <div class="kicker {{ page.color | default: '' }}">{{ page.kicker }}</div>
-  {% endif %}
-  <h1 class="title">{{ page.title }}</h1>
-  <p class="prose" style="margin-top:.4rem;">
-    <small>{{ page.date | date: "%Y-%m-%d" }}</small>
-  </p>
-  {% if page.lead %}
-    <p class="lead">{{ page.lead }}</p>
-  {% endif %}
-</section>
+<header class="post-hero {{ page.color | default: 'purp' }}">
+  <div class="wrap">
+    {% if page.kicker %}
+      <div class="kicker">{{ page.kicker }}</div>
+    {% endif %}
 
-<section class="wrap prose">
-  {{ content }}
-</section>
+    <h1 class="title">{{ page.title }}</h1>
+
+    <p class="post-date">
+      <time datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: "%Y-%m-%d" }}
+      </time>
+    </p>
+
+    {% if page.lead %}
+      <p class="lead">{{ page.lead }}</p>
+    {% endif %}
+  </div>
+</header>
