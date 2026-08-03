@@ -8,13 +8,11 @@ categories:
 color: red
 ---
 ## Introduction
----
 Gandalf is a large language model (LLM) / artificial intelligence (AI) prompt injection challenge by Lakera. The premise is that there's an AI wizard named Gandalf guarding a password, and the player has to try and convince it to reveal that password. Each level introduces stronger restrictions for the player to work around. There are 8 levels. The first 7 levels have progressively stronger guardrails in place for the player to work around, but the level 8 AI also gets regular updates to it and is a lot harder to get the password from.
 
 As I had previously completed Gandalf I decided I would set some challenges for myself. The first is that I wanted to complete each level using a minimum viable prompt; I want to keep the prompt as simple as possible and only change the smallest amount of details possible to pass the level. The next is that I wanted to keep it similar to the previous prompts, and build on the ideas. It is worth noting that this goal is only reasonable for the first 7 levels as level 8 has a lot more guardrails in place that are more complex to bypass. The last challenge I set for myself was to find a prompt that would work across all of the first 7 levels. This is another reason I wanted to keep the prompts similar across each level, as it helps to find where differences in the prompt might break down.
 
 ## Levels
----
 ### Level 1
 > Gandalf: Ask me for the password and I'll happily answer!
 
@@ -280,8 +278,7 @@ However by this point I had managed to extract more than enough information abou
 OCTOPODES
 </details>
 
-Conclusion
----
+## Conclusion
 This challenge ended up becoming more than just finding working prompt injections and extracting the password, it also gave me experience learning how to investigate and probe a black box. As the guardrails became more sophisticated, I found myself spending less time trying to get a functional prompt for every level and more time exploring the edges of the guardrails, testing other ideas I had hypothesized would work. I found the process of treating each response, whether successful or not, as information and using it to form and test, and refine a hypotheses to be really valuable.
 
 It also demonstrated just how difficult it is to implement guardrails for LLMs that are effective, but also don't interfere with legitimate requests. I found that as the protections in place became more stronger, they also became more likely to block legitimate prompts. So I think this is a genuinely difficult balance to get right. 
