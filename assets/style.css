@@ -61,6 +61,30 @@ nav a.nav-kb:hover {
 .btn.alt{background:rgba(124,255,255,.08)}
 .btn:hover{filter:brightness(1.1)}
 
+.kicker{
+  color:#cbbaff;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-size:.8rem;
+}
+
+.kicker.red{
+  color:var(--red);
+}
+
+.kicker.blue{
+  color:var(--blue);
+}
+
+.kicker.purp,
+.kicker.purple{
+  color:var(--purple);
+}
+
+.kicker.grey{
+  color:var(--muted);
+}
+
 /* ===== Hero (homepage only) ===== */
 .hero{
   background:
@@ -150,10 +174,6 @@ nav a.nav-kb:hover {
       transparent 60%
     ),
     linear-gradient(180deg, #0b0f19 0%, #0a0b0f 100%);
-}
-
-.post-hero .kicker{
-  color:var(--hero-accent);
 }
 
 .post-date{
