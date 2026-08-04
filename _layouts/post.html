@@ -1,11 +1,14 @@
 ---
 layout: default
 ---
+
 <section class="hero post-hero {{ page.color | default: 'grey' }}">
   <div class="wrap hero-inner">
     <div>
       {% if page.kicker %}
-        <div class="kicker">{{ page.kicker }}</div>
+        <div class="kicker {{ page.color | default: 'grey' }}">
+          {{ page.kicker }}
+        </div>
       {% endif %}
 
       <h1 class="title">{{ page.title }}</h1>
