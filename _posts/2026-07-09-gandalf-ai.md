@@ -1,7 +1,8 @@
 ---
 title: Gandalf AI
 lead: Investigating LLM guardrails through Lakera's Gandalf prompt injection challenge.
-categories:
+kicker: AI
+tags:
   - offensive
   - ai
   - llm
