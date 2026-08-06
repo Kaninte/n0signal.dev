@@ -259,7 +259,8 @@ nav a.nav-kb:hover{
 
 /* ===== Blog Post Hero ===== */
 .hero.post-hero{
-  border-bottom:3px solid var(--muted);
+  padding:3.25rem 0 2.75rem;
+  border-bottom:2px solid var(--muted);
   background:
     radial-gradient(60% 80% at 70% 0%, rgba(162,168,183,.16), transparent 60%),
     radial-gradient(40% 70% at -10% 20%, rgba(162,168,183,.10), transparent 60%),
@@ -622,6 +623,10 @@ article.card .badge.purple{
 
 /* ===== Responsive Blog Content ===== */
 @media (max-width:640px){
+  .hero.post-hero{
+  padding:3rem 0 2.5rem;
+}
+  
   .prose pre{
     padding:.85rem;
   }
