@@ -259,8 +259,10 @@ nav a.nav-kb:hover{
 
 /* ===== Blog Post Hero ===== */
 .hero.post-hero{
+  --post-accent:var(--muted);
+
   padding:3.25rem 0 2.75rem;
-  border-bottom:1px solid var(--muted);
+  border-bottom:0;
   background:
     radial-gradient(60% 80% at 70% 0%, rgba(162,168,183,.16), transparent 60%),
     radial-gradient(40% 70% at -10% 20%, rgba(162,168,183,.10), transparent 60%),
@@ -268,7 +270,7 @@ nav a.nav-kb:hover{
 }
 
 .hero.post-hero.red{
-  border-bottom-color:var(--red);
+  --post-accent:var(--red);
   background:
     radial-gradient(60% 80% at 70% 0%, rgba(255,77,109,.18), transparent 60%),
     radial-gradient(40% 70% at -10% 20%, rgba(255,77,109,.10), transparent 60%),
@@ -276,7 +278,7 @@ nav a.nav-kb:hover{
 }
 
 .hero.post-hero.blue{
-  border-bottom-color:var(--blue);
+  --post-accent:var(--blue);
   background:
     radial-gradient(60% 80% at 70% 0%, rgba(77,166,255,.18), transparent 60%),
     radial-gradient(40% 70% at -10% 20%, rgba(77,166,255,.10), transparent 60%),
@@ -285,11 +287,34 @@ nav a.nav-kb:hover{
 
 .hero.post-hero.purp,
 .hero.post-hero.purple{
-  border-bottom-color:var(--purple);
+  --post-accent:var(--purple);
   background:
     radial-gradient(60% 80% at 70% 0%, rgba(141,107,255,.18), transparent 60%),
     radial-gradient(40% 70% at -10% 20%, rgba(85,50,255,.18), transparent 60%),
     linear-gradient(180deg, #0b0f19 0%, var(--bg) 100%);
+}
+
+.hero.post-hero > .wrap{
+  position:relative;
+  padding:1.25rem 1.5rem;
+
+  background:
+    linear-gradient(var(--post-accent), var(--post-accent))
+      left top / 28px 1px no-repeat,
+    linear-gradient(var(--post-accent), var(--post-accent))
+      left top / 1px 28px no-repeat,
+    linear-gradient(var(--post-accent), var(--post-accent))
+      right top / 28px 1px no-repeat,
+    linear-gradient(var(--post-accent), var(--post-accent))
+      right top / 1px 28px no-repeat,
+    linear-gradient(var(--post-accent), var(--post-accent))
+      left bottom / 28px 1px no-repeat,
+    linear-gradient(var(--post-accent), var(--post-accent))
+      left bottom / 1px 28px no-repeat,
+    linear-gradient(var(--post-accent), var(--post-accent))
+      right bottom / 28px 1px no-repeat,
+    linear-gradient(var(--post-accent), var(--post-accent))
+      right bottom / 1px 28px no-repeat;
 }
 
 /* Post kicker: inherits the post colour */
@@ -401,9 +426,17 @@ footer{
 }
 
 .prose h2{
-  margin-top:1.8rem;
+  margin-top:2.6rem;
   padding-bottom:.35rem;
   border-bottom:1px solid var(--border);
+}
+
+.prose p + h2,
+.prose pre + h2,
+.prose blockquote + h2,
+.prose ul + h2,
+.prose ol + h2{
+  margin-top:3rem;
 }
 
 .prose h2::before{
