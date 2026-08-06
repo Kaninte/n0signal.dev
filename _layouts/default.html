@@ -32,5 +32,42 @@
     const y = document.getElementById('y');
     if (y) y.textContent = new Date().getFullYear();
   </script>
+  <script>
+    // Copy code block
+  document.querySelectorAll('.prose pre').forEach((block) => {
+    const code = block.querySelector('code');
+
+    if (!code) return;
+
+    const button = document.createElement('button');
+    button.className = 'code-copy';
+    button.type = 'button';
+    button.textContent = 'Copy';
+    button.setAttribute('aria-label', 'Copy code to clipboard');
+
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(code.innerText);
+
+        button.textContent = 'Copied';
+        button.classList.add('copied');
+
+        window.setTimeout(() => {
+          button.textContent = 'Copy';
+          button.classList.remove('copied');
+        }, 1600);
+      } catch (error) {
+        button.textContent = 'Failed';
+
+        window.setTimeout(() => {
+          button.textContent = 'Copy';
+        }, 1600);
+      }
+    });
+
+    block.appendChild(button);
+  });
+</script>
+  
 </body>
 </html>
