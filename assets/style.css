@@ -429,18 +429,18 @@ footer{
 
 .post-content.red blockquote{
   background:rgba(255,77,109,.025);
-  border-left-color:rgba(255,77,109,.65);
+  border-left-color:var(--red);
 }
 
 .post-content.blue blockquote{
   background:rgba(77,166,255,.025);
-  border-left-color:rgba(77,166,255,.65);
+  border-left-color:var(--blue);
 }
 
 .post-content.purp blockquote,
 .post-content.purple blockquote{
   background:rgba(141,107,255,.025);
-  border-left-color:rgba(141,107,255,.65);
+  border-left-color:var(--purple);
 }
 
 .post-content.grey blockquote{
