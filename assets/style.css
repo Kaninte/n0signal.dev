@@ -409,13 +409,13 @@ footer{
 
 .post-content blockquote{
   margin:1.25rem 0;
-  padding:.85rem 1rem;
+  padding:.8rem 1rem;
 
   color:var(--muted);
-  background:rgba(162,168,183,.045);
+  background:rgba(255,255,255,.018);
 
   border:0;
-  border-left:3px solid var(--muted);
+  border-left:2px solid var(--muted);
 }
 
 .post-content blockquote p{
@@ -423,57 +423,25 @@ footer{
   color:inherit;
 }
 
-/* Red posts */
 .post-content.red blockquote{
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,77,109,.09),
-      rgba(255,77,109,.025) 65%,
-      transparent
-    );
-
-  border-left-color:var(--red);
+  background:rgba(255,77,109,.025);
+  border-left-color:rgba(255,77,109,.65);
 }
 
-/* Blue posts */
 .post-content.blue blockquote{
-  background:
-    linear-gradient(
-      90deg,
-      rgba(77,166,255,.09),
-      rgba(77,166,255,.025) 65%,
-      transparent
-    );
-
-  border-left-color:var(--blue);
+  background:rgba(77,166,255,.025);
+  border-left-color:rgba(77,166,255,.65);
 }
 
-/* Purple posts */
 .post-content.purp blockquote,
 .post-content.purple blockquote{
-  background:
-    linear-gradient(
-      90deg,
-      rgba(141,107,255,.09),
-      rgba(141,107,255,.025) 65%,
-      transparent
-    );
-
-  border-left-color:var(--purple);
+  background:rgba(141,107,255,.025);
+  border-left-color:rgba(141,107,255,.65);
 }
 
-/* Grey/default posts */
 .post-content.grey blockquote{
-  background:
-    linear-gradient(
-      90deg,
-      rgba(162,168,183,.07),
-      rgba(162,168,183,.02) 65%,
-      transparent
-    );
-
-  border-left-color:var(--muted);
+  background:rgba(162,168,183,.02);
+  border-left-color:rgba(162,168,183,.5);
 }
 
 .prose pre{
