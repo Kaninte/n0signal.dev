@@ -261,69 +261,83 @@ nav a.nav-kb:hover{
 .hero.post-hero{
   --post-accent:var(--muted);
 
-  padding:3.25rem 0 2.75rem;
-  border-bottom:0;
-  background:
-    radial-gradient(60% 80% at 70% 0%, rgba(162,168,183,.16), transparent 60%),
-    radial-gradient(40% 70% at -10% 20%, rgba(162,168,183,.10), transparent 60%),
-    linear-gradient(180deg, #0b0f19 0%, var(--bg) 100%);
+  padding:2.75rem 0 2.25rem;
+  border:0;
+  background:transparent;
 }
 
 .hero.post-hero.red{
   --post-accent:var(--red);
-  background:
-    radial-gradient(60% 80% at 70% 0%, rgba(255,77,109,.18), transparent 60%),
-    radial-gradient(40% 70% at -10% 20%, rgba(255,77,109,.10), transparent 60%),
-    linear-gradient(180deg, #0b0f19 0%, var(--bg) 100%);
 }
 
 .hero.post-hero.blue{
   --post-accent:var(--blue);
-  background:
-    radial-gradient(60% 80% at 70% 0%, rgba(77,166,255,.18), transparent 60%),
-    radial-gradient(40% 70% at -10% 20%, rgba(77,166,255,.10), transparent 60%),
-    linear-gradient(180deg, #0b0f19 0%, var(--bg) 100%);
 }
 
 .hero.post-hero.purp,
 .hero.post-hero.purple{
   --post-accent:var(--purple);
-  background:
-    radial-gradient(60% 80% at 70% 0%, rgba(141,107,255,.18), transparent 60%),
-    radial-gradient(40% 70% at -10% 20%, rgba(85,50,255,.18), transparent 60%),
-    linear-gradient(180deg, #0b0f19 0%, var(--bg) 100%);
 }
 
+.hero.post-hero.grey{
+  --post-accent:var(--muted);
+}
+
+/* Wide hero zone with a contained post-colour glow */
 .hero.post-hero > .wrap{
   position:relative;
-  padding:1.25rem 1.5rem;
+  padding:1.35rem 1.5rem 1.5rem;
+  isolation:isolate;
 
   background:
-    linear-gradient(var(--post-accent), var(--post-accent))
-      left top / 28px 1px no-repeat,
-    linear-gradient(var(--post-accent), var(--post-accent))
-      left top / 1px 28px no-repeat,
-    linear-gradient(var(--post-accent), var(--post-accent))
-      right top / 28px 1px no-repeat,
-    linear-gradient(var(--post-accent), var(--post-accent))
-      right top / 1px 28px no-repeat,
-    linear-gradient(var(--post-accent), var(--post-accent))
-      left bottom / 28px 1px no-repeat,
-    linear-gradient(var(--post-accent), var(--post-accent))
-      left bottom / 1px 28px no-repeat,
-    linear-gradient(var(--post-accent), var(--post-accent))
-      right bottom / 28px 1px no-repeat,
-    linear-gradient(var(--post-accent), var(--post-accent))
-      right bottom / 1px 28px no-repeat;
+    radial-gradient(
+      circle at 48% 34%,
+      color-mix(in srgb, var(--post-accent) 12%, transparent),
+      transparent 42%
+    );
+}
+
+/* Keep the title block readable without shrinking the hero zone */
+.hero.post-hero .hero-inner{
+  max-width:82ch;
+  margin:0 auto;
+}
+
+/* Asymmetric blacksite corner markers */
+.hero.post-hero > .wrap::before,
+.hero.post-hero > .wrap::after{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  pointer-events:none;
+  opacity:.9;
+}
+
+/* Top-left corner */
+.hero.post-hero > .wrap::before{
+  top:.9rem;
+  left:.9rem;
+  border-top:1px solid color-mix(in srgb, var(--post-accent) 70%, transparent);
+  border-left:1px solid color-mix(in srgb, var(--post-accent) 70%, transparent);
+}
+
+/* Right-side corner */
+.hero.post-hero > .wrap::after{
+  right:.9rem;
+  top:56%;
+  transform:translateY(-50%);
+  border-top:1px solid color-mix(in srgb, var(--post-accent) 70%, transparent);
+  border-right:1px solid color-mix(in srgb, var(--post-accent) 70%, transparent);
 }
 
 /* Post kicker: inherits the post colour */
 .hero.post-hero .kicker{
   display:inline-block;
-  margin-bottom:.35rem;
+  margin-bottom:.45rem;
   padding:.28rem .55rem;
   color:var(--muted);
-  background:rgba(162,168,183,.08);
+  background:rgba(255,255,255,.02);
   border:1px solid rgba(162,168,183,.22);
   border-radius:4px;
   font-weight:600;
@@ -331,25 +345,31 @@ nav a.nav-kb:hover{
 
 .hero.post-hero.red .kicker{
   color:var(--red);
-  background:rgba(255,77,109,.10);
-  border-color:rgba(255,77,109,.28);
+  background:rgba(255,77,109,.07);
+  border-color:rgba(255,77,109,.24);
 }
 
 .hero.post-hero.blue .kicker{
   color:var(--blue);
-  background:rgba(77,166,255,.10);
-  border-color:rgba(77,166,255,.28);
+  background:rgba(77,166,255,.07);
+  border-color:rgba(77,166,255,.24);
 }
 
 .hero.post-hero.purp .kicker,
 .hero.post-hero.purple .kicker{
   color:var(--purple);
-  background:rgba(141,107,255,.10);
-  border-color:rgba(141,107,255,.28);
+  background:rgba(141,107,255,.07);
+  border-color:rgba(141,107,255,.24);
+}
+
+.hero.post-hero.grey .kicker{
+  color:var(--muted);
+  background:rgba(162,168,183,.05);
+  border-color:rgba(162,168,183,.20);
 }
 
 .post-date{
-  margin:.4rem 0 0;
+  margin:.35rem 0 0;
   color:var(--muted);
 }
 
@@ -426,17 +446,14 @@ footer{
 }
 
 .prose h2{
-  margin-top:2.6rem;
+  margin-top:3.4rem;
   padding-bottom:.35rem;
   border-bottom:1px solid var(--border);
 }
 
-.prose p + h2,
-.prose pre + h2,
-.prose blockquote + h2,
-.prose ul + h2,
-.prose ol + h2{
-  margin-top:3rem;
+/* Keep the first article heading closer to the hero */
+.post-content > h2:first-child{
+  margin-top:1.5rem;
 }
 
 .prose h2::before{
@@ -782,7 +799,21 @@ article.card .badge.purple{
 /* ===== Responsive Blog Content ===== */
 @media (max-width:640px){
   .hero.post-hero{
-    padding:3rem 0 2.5rem;
+    padding:2.4rem 0 2rem;
+  }
+
+  .hero.post-hero > .wrap{
+    padding:1.1rem 1.5rem 1.2rem;
+  }
+
+  .hero.post-hero > .wrap::before{
+    top:.8rem;
+    left:.8rem;
+  }
+
+  .hero.post-hero > .wrap::after{
+    top:62%;
+    right:.8rem;
   }
 
   .prose pre{
