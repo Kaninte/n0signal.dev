@@ -261,7 +261,10 @@ nav a.nav-kb:hover{
 .hero.post-hero{
   --post-accent:var(--muted);
 
-  padding:2.25rem 0 1.75rem;
+  position:relative;
+  overflow:hidden;
+
+  padding:3.25rem 0 2.8rem;
   border:0;
   background:transparent;
 }
@@ -283,25 +286,47 @@ nav a.nav-kb:hover{
   --post-accent:var(--muted);
 }
 
-/* Wide blacksite frame with a glow localised around the title */
-.hero.post-hero > .wrap{
-  position:relative;
-  padding:1.25rem 1.5rem 1.35rem;
-  isolation:isolate;
+/*
+  Full-viewport glow layer.
+  The 100vw width lets the colour run to the browser edge and stop cleanly.
+*/
+.hero.post-hero::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+
+  top:0;
+  bottom:0;
+  left:50%;
+
+  width:100vw;
+  transform:translateX(-50%);
 
   background:
     radial-gradient(
-      ellipse at 46% 38%,
-      color-mix(in srgb, var(--post-accent) 10%, transparent),
-      transparent 38%
+      ellipse 52% 95% at 48% 38%,
+      color-mix(in srgb, var(--post-accent) 13%, transparent),
+      color-mix(in srgb, var(--post-accent) 4%, transparent) 46%,
+      transparent 72%
     );
+
+  pointer-events:none;
 }
 
-/*
-  Override the generic desktop hero grid.
-  Without display:block, the title occupies only the first grid column,
-  which makes the post hero look off-centre.
-*/
+/* Wide, taller blacksite frame */
+.hero.post-hero > .wrap{
+  position:relative;
+  z-index:1;
+
+  width:min(calc(100% - 2rem), 1480px);
+  min-height:250px;
+  padding:2.25rem 2.5rem;
+
+  display:flex;
+  align-items:center;
+}
+
+/* Keep the title block aligned and readable */
 .hero.post-hero .hero-inner{
   display:block;
   width:100%;
@@ -309,29 +334,39 @@ nav a.nav-kb:hover{
   margin:0 auto;
 }
 
-/* Restrained opposing blacksite corners */
+/* Opposing blacksite corners */
 .hero.post-hero > .wrap::before,
 .hero.post-hero > .wrap::after{
   content:"";
   position:absolute;
-  width:18px;
-  height:18px;
-  pointer-events:none;
+
+  width:20px;
+  height:20px;
+
   opacity:.75;
+  pointer-events:none;
 }
 
 .hero.post-hero > .wrap::before{
-  top:.85rem;
-  left:.85rem;
-  border-top:1px solid color-mix(in srgb, var(--post-accent) 65%, transparent);
-  border-left:1px solid color-mix(in srgb, var(--post-accent) 65%, transparent);
+  top:1rem;
+  left:1rem;
+
+  border-top:1px solid
+    color-mix(in srgb, var(--post-accent) 65%, transparent);
+
+  border-left:1px solid
+    color-mix(in srgb, var(--post-accent) 65%, transparent);
 }
 
 .hero.post-hero > .wrap::after{
-  right:.85rem;
-  bottom:.85rem;
-  border-right:1px solid color-mix(in srgb, var(--post-accent) 65%, transparent);
-  border-bottom:1px solid color-mix(in srgb, var(--post-accent) 65%, transparent);
+  right:1rem;
+  bottom:1rem;
+
+  border-right:1px solid
+    color-mix(in srgb, var(--post-accent) 65%, transparent);
+
+  border-bottom:1px solid
+    color-mix(in srgb, var(--post-accent) 65%, transparent);
 }
 
 /* Post kicker: inherits the post colour */
@@ -806,21 +841,33 @@ article.card .badge.purple{
 /* ===== Responsive Blog Content ===== */
 @media (max-width:640px){
   .hero.post-hero{
-    padding:1.9rem 0 1.4rem;
+    padding:2.25rem 0 1.8rem;
+  }
+
+  .hero.post-hero::before{
+    background:
+      radial-gradient(
+        ellipse 95% 85% at 45% 38%,
+        color-mix(in srgb, var(--post-accent) 12%, transparent),
+        color-mix(in srgb, var(--post-accent) 4%, transparent) 48%,
+        transparent 76%
+      );
   }
 
   .hero.post-hero > .wrap{
-    padding:1.05rem 1.35rem 1.15rem;
+    width:calc(100% - 1.5rem);
+    min-height:230px;
+    padding:1.6rem 1.5rem;
   }
 
   .hero.post-hero > .wrap::before{
-    top:.7rem;
-    left:.7rem;
+    top:.75rem;
+    left:.75rem;
   }
 
   .hero.post-hero > .wrap::after{
-    right:.7rem;
-    bottom:.7rem;
+    right:.75rem;
+    bottom:.75rem;
   }
 
   .hero.post-hero + section.wrap{
