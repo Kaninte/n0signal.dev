@@ -1419,3 +1419,19 @@ article.card .badge.purple{
     width:100%;
   }
 }
+
+/* Firefox/native select fixes */
+.blog-sort,
+.blog-filter-group select{
+  position:relative;
+  z-index:2;
+
+  display:block;
+
+  pointer-events:auto;
+  cursor:pointer;
+
+  appearance:auto;
+  -webkit-appearance:auto;
+  -moz-appearance:auto;
+}
