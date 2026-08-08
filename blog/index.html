@@ -5,6 +5,7 @@ permalink: /blog/
 ---
 
 <!-- Disable AI Crawlers -->
+
 <meta name="robots" content="noai, noimageai, noarchive">
 
 <section class="hero blog-hero">
@@ -22,364 +23,349 @@ permalink: /blog/
 
   <div class="blog-tools">
 
-    <div class="blog-tools-main">
+<div class="blog-tools-main">
 
-      <div class="blog-search">
-        <label class="sr-only" for="blogSearch">
-          Search posts
-        </label>
+  <div class="blog-search">
+    <label class="sr-only" for="blogSearch">Search posts</label>
+    <input
+      id="blogSearch"
+      type="search"
+      placeholder="Search posts..."
+      autocomplete="off"
+    >
+  </div>
 
-        <input
-          id="blogSearch"
-          type="search"
-          placeholder="Search posts..."
-          autocomplete="off"
-        >
-      </div>
+  <!-- Custom Sort Dropdown -->
+  <div class="blog-dropdown" data-dropdown="sort">
+    <button
+      class="blog-dropdown-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-haspopup="listbox"
+    >
+      <span class="blog-dropdown-value">Newest</span>
+      <span class="blog-dropdown-caret" aria-hidden="true">▾</span>
+    </button>
 
-      <select
-        id="blogSort"
-        class="blog-sort"
-        aria-label="Sort posts"
-      >
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
-        <option value="title">Title A–Z</option>
-      </select>
-
-      <button
-        id="blogFilterToggle"
-        class="blog-filter-toggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="blogFilterPanel"
-      >
-        Filters
-      </button>
-
-    </div>
-
-
-    <!-- Expandable Filters -->
     <div
-      id="blogFilterPanel"
-      class="blog-filter-panel"
+      class="blog-dropdown-menu"
+      role="listbox"
       hidden
     >
-
-      <!-- Post Lens -->
-      <div class="blog-filter-group">
-
-        <span class="blog-filter-label">
-          Post Lens
-        </span>
-
-        <div
-          class="blog-filters"
-          data-filter-group="lens"
-        >
-
-          <button
-            class="blog-filter active"
-            type="button"
-            data-filter="all"
-          >
-            All
-          </button>
-
-          <button
-            class="blog-filter red"
-            type="button"
-            data-filter="red"
-          >
-            Offense
-          </button>
-
-          <button
-            class="blog-filter blue"
-            type="button"
-            data-filter="blue"
-          >
-            Defense
-          </button>
-
-          <button
-            class="blog-filter purple"
-            type="button"
-            data-filter="purple"
-          >
-            Hybrid
-          </button>
-
-          <button
-            class="blog-filter grey"
-            type="button"
-            data-filter="grey"
-          >
-            General
-          </button>
-
-        </div>
-      </div>
-
-
-      <!-- Type / Kicker -->
-      <div class="blog-filter-group">
-
-        <label
-          class="blog-filter-label"
-          for="blogKicker"
-        >
-          Type
-        </label>
-
-        {% assign kickers = site.posts
-          | map: "kicker"
-          | compact
-          | uniq
-          | sort
-        %}
-
-        <select id="blogKicker">
-
-          <option value="all">
-            All types
-          </option>
-
-          {% for kicker in kickers %}
-            <option
-              value="{{ kicker | downcase | escape }}"
-            >
-              {{ kicker }}
-            </option>
-          {% endfor %}
-
-        </select>
-
-      </div>
-
-
-      <!-- Tags -->
-      <div class="blog-filter-group">
-
-        <label
-          class="blog-filter-label"
-          for="blogTag"
-        >
-          Tag
-        </label>
-
-        <select id="blogTag">
-
-          <option value="all">
-            All tags
-          </option>
-
-          {% assign sorted_tags = site.tags | sort %}
-
-          {% for tag in sorted_tags %}
-            <option
-              value="{{ tag[0] | downcase | escape }}"
-            >
-              {{ tag[0] }}
-            </option>
-          {% endfor %}
-
-        </select>
-
-      </div>
-
+      <button type="button" role="option" data-value="newest" aria-selected="true">Newest</button>
+      <button type="button" role="option" data-value="oldest" aria-selected="false">Oldest</button>
+      <button type="button" role="option" data-value="title" aria-selected="false">Title A–Z</button>
     </div>
+  </div>
 
+  <button
+    id="blogFilterToggle"
+    class="blog-filter-toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="blogFilterPanel"
+  >
+    Filters
+  </button>
 
-    <span
-      id="blogSearchCount"
-      class="blog-search-count"
-    ></span>
+</div>
+
+<!-- Expandable Filters -->
+<div id="blogFilterPanel" class="blog-filter-panel" hidden>
+
+  <!-- Post Lens -->
+  <div class="blog-filter-group">
+    <span class="blog-filter-label">Post Lens</span>
+
+    <div class="blog-filters" data-filter-group="lens">
+      <button class="blog-filter active" type="button" data-filter="all">All</button>
+      <button class="blog-filter red" type="button" data-filter="red">Offense</button>
+      <button class="blog-filter blue" type="button" data-filter="blue">Defense</button>
+      <button class="blog-filter purple" type="button" data-filter="purple">Hybrid</button>
+      <button class="blog-filter grey" type="button" data-filter="grey">General</button>
+    </div>
+  </div>
+
+  <!-- Custom Type Dropdown -->
+  <div class="blog-filter-group">
+    <span class="blog-filter-label">Type</span>
+
+    <div class="blog-dropdown" data-dropdown="kicker">
+      <button
+        class="blog-dropdown-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-haspopup="listbox"
+      >
+        <span class="blog-dropdown-value">All types</span>
+        <span class="blog-dropdown-caret" aria-hidden="true">▾</span>
+      </button>
+
+      <div
+        class="blog-dropdown-menu"
+        role="listbox"
+        hidden
+      >
+        <button type="button" role="option" data-value="all" aria-selected="true">All types</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Tag Dropdown -->
+  <div class="blog-filter-group">
+    <span class="blog-filter-label">Tag</span>
+
+    <div class="blog-dropdown" data-dropdown="tag">
+      <button
+        class="blog-dropdown-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-haspopup="listbox"
+      >
+        <span class="blog-dropdown-value">All tags</span>
+        <span class="blog-dropdown-caret" aria-hidden="true">▾</span>
+      </button>
+
+      <div
+        class="blog-dropdown-menu"
+        role="listbox"
+        hidden
+      >
+        <button type="button" role="option" data-value="all" aria-selected="true">All tags</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<span id="blogSearchCount" class="blog-search-count" aria-live="polite"></span>
 
   </div>
 
-
   <!-- Posts -->
-  <div
-    class="post-grid"
-    id="postGrid"
+
+  <div class="post-grid" id="postGrid">
+
+{% for post in site.posts %}
+
+  {% capture search_text %}
+    {{ post.title }}
+    {{ post.kicker }}
+    {{ post.lead }}
+    {{ post.tags | join: ' ' }}
+  {% endcapture %}
+
+  <article
+    class="post-card {{ post.color | default: 'grey' | escape }}"
+    data-color="{{ post.color | default: 'grey' | downcase | escape }}"
+    data-title="{{ post.title | downcase | strip_html | escape }}"
+    data-kicker="{{ post.kicker | default: '' | downcase | strip_html | escape }}"
+    data-kicker-label="{{ post.kicker | default: '' | strip_html | escape }}"
+    data-tags="{{ post.tags | join: '||' | downcase | strip_html | escape }}"
+    data-tags-label="{{ post.tags | join: '||' | strip_html | escape }}"
+    data-search="{{ search_text | strip_html | strip_newlines | escape }}"
+    data-date="{{ post.date | date_to_xmlschema }}"
   >
 
-    {% for post in site.posts %}
+    <a
+      class="post-card-hit"
+      href="{{ post.url | relative_url }}"
+      aria-label="Read {{ post.title | escape }}"
+    >
 
-      {% capture search_text %}
-        {{ post.title }}
-        {{ post.kicker }}
-        {{ post.lead }}
-        {{ post.tags | join: ' ' }}
-      {% endcapture %}
+      <div class="post-card-meta">
 
-      <article
-        class="post-card {{ post.color | default: 'grey' | escape }}"
-        data-color="{{ post.color | default: 'grey' | escape }}"
-        data-title="{{ post.title | downcase | strip_html | escape }}"
-        data-kicker="{{ post.kicker | default: '' | downcase | strip_html | escape }}"
-        data-tags="{{ post.tags | join: '||' | downcase | strip_html | escape }}"
-        data-search="{{ search_text | strip_html | strip_newlines | escape }}"
-        data-date="{{ post.date | date_to_xmlschema }}"
-      >
-
-        <a
-          class="post-card-hit"
-          href="{{ post.url | relative_url }}"
-          aria-label="Read {{ post.title | escape }}"
-        >
-
-          <div class="post-card-meta">
-
-            {% if post.kicker %}
-
-              <span
-                class="kicker-small {{ post.color | default: 'grey' }}"
-              >
-                {{ post.kicker }}
-              </span>
-
-            {% endif %}
-
-            <time
-              datetime="{{ post.date | date_to_xmlschema }}"
-            >
-              {{ post.date | date: "%Y-%m-%d" }}
-            </time>
-
-          </div>
-
-
-          <h2>
-            {{ post.title }}
-          </h2>
-
-
-          {% if post.lead %}
-
-            <p class="post-card-excerpt">
-              {{ post.lead }}
-            </p>
-
-          {% endif %}
-
-
-          <span class="post-card-link">
-            Read post →
+        {% if post.kicker %}
+          <span class="kicker-small {{ post.color | default: 'grey' }}">
+            {{ post.kicker }}
           </span>
+        {% endif %}
 
-        </a>
+        <time datetime="{{ post.date | date_to_xmlschema }}">
+          {{ post.date | date: "%Y-%m-%d" }}
+        </time>
 
-      </article>
+      </div>
 
-    {% endfor %}
+      <h2>{{ post.title }}</h2>
+
+      {% if post.lead %}
+        <p class="post-card-excerpt">
+          {{ post.lead }}
+        </p>
+      {% endif %}
+
+      <span class="post-card-link">
+        Read post →
+      </span>
+
+    </a>
+
+  </article>
+
+{% endfor %}
 
   </div>
 
 </section>
 
-
 <script>
-  const blogSearch =
-    document.getElementById('blogSearch');
+(() => {
+  const blogSearch = document.getElementById('blogSearch');
+  const blogFilterToggle = document.getElementById('blogFilterToggle');
+  const blogFilterPanel = document.getElementById('blogFilterPanel');
+  const postGrid = document.getElementById('postGrid');
+  const blogCount = document.getElementById('blogSearchCount');
 
-  const blogSort =
-    document.getElementById('blogSort');
+  const blogCards = [...document.querySelectorAll('.post-card')];
+  const lensButtons = [...document.querySelectorAll('[data-filter-group="lens"] .blog-filter')];
+  const dropdowns = [...document.querySelectorAll('.blog-dropdown')];
 
-  const blogKicker =
-    document.getElementById('blogKicker');
+  const state = {
+    lens: 'all',
+    kicker: 'all',
+    tag: 'all',
+    sort: 'newest'
+  };
 
-  const blogTag =
-    document.getElementById('blogTag');
+  function makeDropdownOption(value, label) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.setAttribute('role', 'option');
+    button.setAttribute('aria-selected', 'false');
+    button.dataset.value = value;
+    button.textContent = label;
+    return button;
+  }
 
-  const blogFilterToggle =
-    document.getElementById('blogFilterToggle');
-
-  const blogFilterPanel =
-    document.getElementById('blogFilterPanel');
-
-  const postGrid =
-    document.getElementById('postGrid');
-
-  const blogCount =
-    document.getElementById('blogSearchCount');
-
-
-  const blogFilters = [
-    ...document.querySelectorAll(
-      '[data-filter-group="lens"] .blog-filter'
-    )
-  ];
-
-
-  const blogCards = [
-    ...document.querySelectorAll('.post-card')
-  ];
-
-
-  let activeLens = 'all';
-
-
-  function updateBlog() {
-
-    const query =
-      blogSearch.value
-        .trim()
-        .toLowerCase();
-
-    const kicker =
-      blogKicker.value;
-
-    const tag =
-      blogTag.value;
-
-
-    let visible = 0;
-
+  function populateMetadataDropdowns() {
+    const kickerMap = new Map();
+    const tagMap = new Map();
 
     blogCards.forEach(card => {
+      const kickerValue = (card.dataset.kicker || '').trim();
+      const kickerLabel = (card.dataset.kickerLabel || '').trim();
 
-      const searchable =
-        card.dataset.search.toLowerCase();
+      if (kickerValue && !kickerMap.has(kickerValue)) {
+        kickerMap.set(kickerValue, kickerLabel || kickerValue);
+      }
 
-      const color =
-        card.dataset.color.toLowerCase();
+      const tagValues = (card.dataset.tags || '')
+        .split('||')
+        .map(tag => tag.trim())
+        .filter(Boolean);
 
-      const cardKicker =
-        card.dataset.kicker.toLowerCase();
+      const tagLabels = (card.dataset.tagsLabel || '')
+        .split('||')
+        .map(tag => tag.trim());
 
-      const cardTags =
-        card.dataset.tags
-          .split('||')
-          .map(tag => tag.trim())
-          .filter(Boolean);
+      tagValues.forEach((value, index) => {
+        if (!tagMap.has(value)) {
+          tagMap.set(value, tagLabels[index] || value);
+        }
+      });
+    });
 
+    const kickerMenu = document.querySelector('[data-dropdown="kicker"] .blog-dropdown-menu');
+    const tagMenu = document.querySelector('[data-dropdown="tag"] .blog-dropdown-menu');
+
+    [...kickerMap.entries()]
+      .sort((a, b) => a[1].localeCompare(b[1]))
+      .forEach(([value, label]) => {
+        kickerMenu.appendChild(makeDropdownOption(value, label));
+      });
+
+    [...tagMap.entries()]
+      .sort((a, b) => a[1].localeCompare(b[1]))
+      .forEach(([value, label]) => {
+        tagMenu.appendChild(makeDropdownOption(value, label));
+      });
+  }
+
+  function closeDropdown(dropdown, returnFocus = false) {
+    const toggle = dropdown.querySelector('.blog-dropdown-toggle');
+    const menu = dropdown.querySelector('.blog-dropdown-menu');
+
+    menu.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+
+    if (returnFocus) {
+      toggle.focus();
+    }
+  }
+
+  function closeAllDropdowns(except = null) {
+    dropdowns.forEach(dropdown => {
+      if (dropdown !== except) {
+        closeDropdown(dropdown);
+      }
+    });
+  }
+
+  function openDropdown(dropdown) {
+    const toggle = dropdown.querySelector('.blog-dropdown-toggle');
+    const menu = dropdown.querySelector('.blog-dropdown-menu');
+
+    closeAllDropdowns(dropdown);
+
+    menu.hidden = false;
+    toggle.setAttribute('aria-expanded', 'true');
+
+    const selected = menu.querySelector('[aria-selected="true"]');
+    const first = menu.querySelector('[role="option"]');
+    (selected || first)?.focus();
+  }
+
+  function selectDropdownOption(dropdown, option) {
+    const key = dropdown.dataset.dropdown;
+    const menu = dropdown.querySelector('.blog-dropdown-menu');
+    const valueDisplay = dropdown.querySelector('.blog-dropdown-value');
+
+    menu.querySelectorAll('[role="option"]').forEach(item => {
+      item.setAttribute('aria-selected', item === option ? 'true' : 'false');
+    });
+
+    state[key] = option.dataset.value;
+    valueDisplay.textContent = option.textContent;
+
+    closeDropdown(dropdown, true);
+
+    if (key === 'sort') {
+      sortPosts();
+    }
+
+    updateBlog();
+  }
+
+  function updateBlog() {
+    const query = blogSearch.value.trim().toLowerCase();
+    let visible = 0;
+
+    blogCards.forEach(card => {
+      const searchable = (card.dataset.search || '').toLowerCase();
+      const color = (card.dataset.color || '').toLowerCase();
+      const kicker = (card.dataset.kicker || '').toLowerCase();
+
+      const tags = (card.dataset.tags || '')
+        .split('||')
+        .map(tag => tag.trim())
+        .filter(Boolean);
 
       const matchesSearch =
-        !query ||
-        searchable.includes(query);
-
+        !query || searchable.includes(query);
 
       const matchesLens =
-        activeLens === 'all' ||
-        color === activeLens ||
-        (
-          activeLens === 'purple' &&
-          color === 'purp'
-        );
-
+        state.lens === 'all' ||
+        color === state.lens ||
+        (state.lens === 'purple' && color === 'purp');
 
       const matchesKicker =
-        kicker === 'all' ||
-        cardKicker === kicker;
-
+        state.kicker === 'all' ||
+        kicker === state.kicker;
 
       const matchesTag =
-        tag === 'all' ||
-        cardTags.includes(tag);
-
+        state.tag === 'all' ||
+        tags.includes(state.tag);
 
       const show =
         matchesSearch &&
@@ -387,153 +373,158 @@ permalink: /blog/
         matchesKicker &&
         matchesTag;
 
-
       card.hidden = !show;
-
 
       if (show) {
         visible++;
       }
-
     });
-
 
     const filtering =
       query ||
-      activeLens !== 'all' ||
-      kicker !== 'all' ||
-      tag !== 'all';
+      state.lens !== 'all' ||
+      state.kicker !== 'all' ||
+      state.tag !== 'all';
 
-
-    blogCount.textContent =
-      filtering
-        ? `${visible} post${visible === 1 ? '' : 's'}`
-        : '';
-
+    blogCount.textContent = filtering
+      ? `${visible} post${visible === 1 ? '' : 's'}`
+      : '';
   }
 
-
   function sortPosts() {
+    const sorted = [...blogCards].sort((a, b) => {
+      if (state.sort === 'oldest') {
+        return new Date(a.dataset.date) - new Date(b.dataset.date);
+      }
 
-    const mode =
-      blogSort.value;
+      if (state.sort === 'title') {
+        return a.dataset.title.localeCompare(b.dataset.title);
+      }
 
-
-    const sorted =
-      [...blogCards].sort((a, b) => {
-
-        if (mode === 'oldest') {
-
-          return (
-            new Date(a.dataset.date) -
-            new Date(b.dataset.date)
-          );
-
-        }
-
-
-        if (mode === 'title') {
-
-          return a.dataset.title.localeCompare(
-            b.dataset.title
-          );
-
-        }
-
-
-        return (
-          new Date(b.dataset.date) -
-          new Date(a.dataset.date)
-        );
-
-      });
-
+      return new Date(b.dataset.date) - new Date(a.dataset.date);
+    });
 
     sorted.forEach(card => {
       postGrid.appendChild(card);
     });
-
   }
 
+  blogSearch.addEventListener('input', updateBlog);
 
-  blogSearch.addEventListener(
-    'input',
-    updateBlog
-  );
+  lensButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      state.lens = button.dataset.filter;
 
+      lensButtons.forEach(item => {
+        item.classList.toggle('active', item === button);
+      });
 
-  blogKicker.addEventListener(
-    'change',
-    updateBlog
-  );
-
-
-  blogTag.addEventListener(
-    'change',
-    updateBlog
-  );
-
-
-  blogSort.addEventListener(
-    'change',
-    () => {
-      sortPosts();
       updateBlog();
-    }
-  );
-
-
-  blogFilters.forEach(button => {
-
-    button.addEventListener(
-      'click',
-      () => {
-
-        activeLens =
-          button.dataset.filter;
-
-
-        blogFilters.forEach(filter => {
-
-          filter.classList.toggle(
-            'active',
-            filter === button
-          );
-
-        });
-
-
-        updateBlog();
-
-      }
-    );
-
+    });
   });
 
+  blogFilterToggle.addEventListener('click', () => {
+    const isOpen = !blogFilterPanel.hidden;
 
-  blogFilterToggle.addEventListener(
-    'click',
-    () => {
+    blogFilterPanel.hidden = isOpen;
+    blogFilterToggle.setAttribute(
+      'aria-expanded',
+      isOpen ? 'false' : 'true'
+    );
 
-      const open =
-        blogFilterPanel.hidden;
-
-
-      blogFilterPanel.hidden =
-        !open;
-
-
-      blogFilterToggle.setAttribute(
-        'aria-expanded',
-        open ? 'true' : 'false'
-      );
-
+    if (isOpen) {
+      closeAllDropdowns();
     }
-  );
+  });
 
+  dropdowns.forEach(dropdown => {
+    const toggle = dropdown.querySelector('.blog-dropdown-toggle');
+    const menu = dropdown.querySelector('.blog-dropdown-menu');
 
-  /* Make sure initial order is correct */
+    toggle.addEventListener('click', () => {
+      const isOpen = !menu.hidden;
+
+      if (isOpen) {
+        closeDropdown(dropdown);
+      } else {
+        openDropdown(dropdown);
+      }
+    });
+
+    menu.addEventListener('click', event => {
+      const option = event.target.closest('[role="option"]');
+
+      if (!option) return;
+
+      selectDropdownOption(dropdown, option);
+    });
+
+    dropdown.addEventListener('keydown', event => {
+      const options = [...menu.querySelectorAll('[role="option"]')];
+      const currentIndex = options.indexOf(document.activeElement);
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeDropdown(dropdown, true);
+        return;
+      }
+
+      if (menu.hidden) {
+        if (
+          event.key === 'ArrowDown' ||
+          event.key === 'ArrowUp' ||
+          event.key === 'Enter' ||
+          event.key === ' '
+        ) {
+          event.preventDefault();
+          openDropdown(dropdown);
+        }
+
+        return;
+      }
+
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        options[(currentIndex + 1 + options.length) % options.length]?.focus();
+      }
+
+      if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        options[(currentIndex - 1 + options.length) % options.length]?.focus();
+      }
+
+      if (event.key === 'Home') {
+        event.preventDefault();
+        options[0]?.focus();
+      }
+
+      if (event.key === 'End') {
+        event.preventDefault();
+        options[options.length - 1]?.focus();
+      }
+
+      if (
+        (event.key === 'Enter' || event.key === ' ') &&
+        document.activeElement?.getAttribute('role') === 'option'
+      ) {
+        event.preventDefault();
+        selectDropdownOption(dropdown, document.activeElement);
+      }
+    });
+  });
+
+  document.addEventListener('click', event => {
+    const clickedDropdown = event.target.closest('.blog-dropdown');
+
+    dropdowns.forEach(dropdown => {
+      if (dropdown !== clickedDropdown) {
+        closeDropdown(dropdown);
+      }
+    });
+  });
+
+  populateMetadataDropdowns();
   sortPosts();
   updateBlog();
-
+})();
 </script>
