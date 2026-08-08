@@ -44,7 +44,7 @@ permalink: /blog/
       aria-haspopup="listbox"
     >
       <span class="blog-dropdown-value">Newest</span>
-      <span class="blog-dropdown-caret" aria-hidden="true">▾</span>
+      <span class="blog-dropdown-caret" aria-hidden="true"></span>
     </button>
 
     <div
@@ -75,7 +75,7 @@ permalink: /blog/
 
   <!-- Post Lens -->
   <div class="blog-filter-group">
-    <span class="blog-filter-label">Lens</span>
+    <span class="blog-filter-label">Post Lens</span>
 
     <div class="blog-filters" data-filter-group="lens">
       <button class="blog-filter active" type="button" data-filter="all">All</button>
@@ -98,7 +98,7 @@ permalink: /blog/
         aria-haspopup="listbox"
       >
         <span class="blog-dropdown-value">All types</span>
-        <span class="blog-dropdown-caret" aria-hidden="true">▾</span>
+        <span class="blog-dropdown-caret" aria-hidden="true"></span>
       </button>
 
       <div
@@ -123,7 +123,7 @@ permalink: /blog/
         aria-haspopup="listbox"
       >
         <span class="blog-dropdown-value">All tags</span>
-        <span class="blog-dropdown-caret" aria-hidden="true">▾</span>
+        <span class="blog-dropdown-caret" aria-hidden="true"></span>
       </button>
 
       <div
@@ -134,6 +134,12 @@ permalink: /blog/
         <button type="button" role="option" data-value="all" aria-selected="true">All tags</button>
       </div>
     </div>
+  </div>
+
+  <div class="blog-filter-actions">
+    <button id="blogClearFilters" class="blog-clear-filters" type="button">
+      Clear filters
+    </button>
   </div>
 
 </div>
@@ -216,6 +222,7 @@ permalink: /blog/
   const blogFilterPanel = document.getElementById('blogFilterPanel');
   const postGrid = document.getElementById('postGrid');
   const blogCount = document.getElementById('blogSearchCount');
+  const blogClearFilters = document.getElementById('blogClearFilters');
 
   const blogCards = [...document.querySelectorAll('.post-card')];
   const lensButtons = [...document.querySelectorAll('[data-filter-group="lens"] .blog-filter')];
@@ -337,6 +344,25 @@ permalink: /blog/
     updateBlog();
   }
 
+  function resetDropdown(key, value = 'all') {
+    const dropdown = document.querySelector(`[data-dropdown="${key}"]`);
+    if (!dropdown) return;
+
+    const menu = dropdown.querySelector('.blog-dropdown-menu');
+    const option = menu.querySelector(`[data-value="${value}"]`);
+    const valueDisplay = dropdown.querySelector('.blog-dropdown-value');
+
+    if (!option) return;
+
+    menu.querySelectorAll('[role="option"]').forEach(item => {
+      item.setAttribute('aria-selected', item === option ? 'true' : 'false');
+    });
+
+    state[key] = value;
+    valueDisplay.textContent = option.textContent;
+    closeDropdown(dropdown);
+  }
+
   function updateBlog() {
     const query = blogSearch.value.trim().toLowerCase();
     let visible = 0;
@@ -421,6 +447,19 @@ permalink: /blog/
 
       updateBlog();
     });
+  });
+
+  blogClearFilters.addEventListener('click', () => {
+    state.lens = 'all';
+
+    lensButtons.forEach(button => {
+      button.classList.toggle('active', button.dataset.filter === 'all');
+    });
+
+    resetDropdown('kicker');
+    resetDropdown('tag');
+
+    updateBlog();
   });
 
   blogFilterToggle.addEventListener('click', () => {
