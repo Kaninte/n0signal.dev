@@ -18,10 +18,38 @@ permalink: /blog/
 </section>
 
 <section class="wrap blog-index">
+
+  <div class="blog-tools">
+  <div class="blog-search">
+    <label class="sr-only" for="blogSearch">Search posts</label>
+
+    <input
+      id="blogSearch"
+      type="search"
+      placeholder="Search posts..."
+      autocomplete="off"
+    >
+  </div>
+
+  <div class="blog-filters" aria-label="Filter posts by colour">
+    <button class="blog-filter active" type="button" data-filter="all">All</button>
+    <button class="blog-filter red" type="button" data-filter="red">Red</button>
+    <button class="blog-filter blue" type="button" data-filter="blue">Blue</button>
+    <button class="blog-filter purple" type="button" data-filter="purple">Purple</button>
+    <button class="blog-filter grey" type="button" data-filter="grey">Grey</button>
+  </div>
+
+  <span id="blogSearchCount" class="blog-search-count"></span>
+</div>
+  
   <div class="post-grid">
 
     {% for post in site.posts %}
-      <article class="post-card {{ post.color | default: 'grey' }}">
+      <article
+  class="post-card {{ post.color | default: 'grey' }}"
+  data-color="{{ post.color | default: 'grey' }}"
+  data-search="{{ post.title }} {{ post.kicker }} {{ post.lead }} {{ post.tags | join: ' ' }}"
+>
 
         <a
           class="post-card-hit"
@@ -62,3 +90,56 @@ permalink: /blog/
 
   </div>
 </section>
+
+<script>
+  const blogSearch = document.getElementById('blogSearch');
+  const blogCards = [...document.querySelectorAll('.post-card')];
+  const blogFilters = [...document.querySelectorAll('.blog-filter')];
+  const blogCount = document.getElementById('blogSearchCount');
+
+  let activeFilter = 'all';
+
+  function updateBlog() {
+    const query = blogSearch.value.trim().toLowerCase();
+    let visible = 0;
+
+    blogCards.forEach(card => {
+      const searchable = card.dataset.search.toLowerCase();
+      const color = card.dataset.color;
+
+      const matchesSearch =
+        !query || searchable.includes(query);
+
+      const matchesFilter =
+        activeFilter === 'all' ||
+        color === activeFilter ||
+        (activeFilter === 'purple' && color === 'purp');
+
+      const show = matchesSearch && matchesFilter;
+
+      card.hidden = !show;
+
+      if (show) visible++;
+    });
+
+    const filtering = query || activeFilter !== 'all';
+
+    blogCount.textContent = filtering
+      ? `${visible} post${visible === 1 ? '' : 's'}`
+      : '';
+  }
+
+  blogSearch.addEventListener('input', updateBlog);
+
+  blogFilters.forEach(button => {
+    button.addEventListener('click', () => {
+      activeFilter = button.dataset.filter;
+
+      blogFilters.forEach(filter => {
+        filter.classList.toggle('active', filter === button);
+      });
+
+      updateBlog();
+    });
+  });
+</script>
