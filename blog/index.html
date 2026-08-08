@@ -3,6 +3,7 @@ layout: default
 title: blog
 permalink: /blog/
 ---
+
 <!-- Disable AI Crawlers -->
 <meta name="robots" content="noai, noimageai, noarchive">
 
@@ -20,36 +21,122 @@ permalink: /blog/
 <section class="wrap blog-index">
 
   <div class="blog-tools">
-  <div class="blog-search">
-    <label class="sr-only" for="blogSearch">Search posts</label>
 
-    <input
-      id="blogSearch"
-      type="search"
-      placeholder="Search posts..."
-      autocomplete="off"
-    >
+    <div class="blog-tools-main">
+
+      <div class="blog-search">
+        <label class="sr-only" for="blogSearch">Search posts</label>
+
+        <input
+          id="blogSearch"
+          type="search"
+          placeholder="Search posts..."
+          autocomplete="off"
+        >
+      </div>
+
+      <select id="blogSort" class="blog-sort" aria-label="Sort posts">
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+        <option value="title">Title A–Z</option>
+      </select>
+
+      <button
+        id="blogFilterToggle"
+        class="blog-filter-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="blogFilterPanel"
+      >
+        Filters
+      </button>
+
+    </div>
+
+    <div id="blogFilterPanel" class="blog-filter-panel" hidden>
+
+      <div class="blog-filter-group">
+        <span class="blog-filter-label">Post Lens</span>
+
+        <div class="blog-filters" data-filter-group="lens">
+          <button class="blog-filter active" type="button" data-filter="all">
+            All
+          </button>
+
+          <button class="blog-filter red" type="button" data-filter="red">
+            Offense
+          </button>
+
+          <button class="blog-filter blue" type="button" data-filter="blue">
+            Defense
+          </button>
+
+          <button class="blog-filter purple" type="button" data-filter="purple">
+            Hybrid
+          </button>
+
+          <button class="blog-filter grey" type="button" data-filter="grey">
+            General
+          </button>
+        </div>
+      </div>
+
+      <div class="blog-filter-group">
+        <label class="blog-filter-label" for="blogKicker">
+          Kicker
+        </label>
+
+        <select id="blogKicker">
+          <option value="all">All kickers</option>
+
+          {% assign kickers = site.posts | map: "kicker" | compact | uniq | sort %}
+          {% for kicker in kickers %}
+            <option value="{{ kicker | downcase | escape }}">
+              {{ kicker }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="blog-filter-group">
+        <label class="blog-filter-label" for="blogTag">
+          Tag
+        </label>
+
+        <select id="blogTag">
+          <option value="all">All tags</option>
+
+          {% assign all_tags = site.posts | map: "tags" | compact | join: "," | split: "," | uniq | sort %}
+          {% for tag in all_tags %}
+            {% assign clean_tag = tag | strip %}
+            {% unless clean_tag == "" %}
+              <option value="{{ clean_tag | downcase | escape }}">
+                {{ clean_tag }}
+              </option>
+            {% endunless %}
+          {% endfor %}
+        </select>
+      </div>
+
+    </div>
+
+    <span id="blogSearchCount" class="blog-search-count"></span>
+
   </div>
 
-  <div class="blog-filters" aria-label="Filter posts by colour">
-    <button class="blog-filter active" type="button" data-filter="all">All</button>
-    <button class="blog-filter red" type="button" data-filter="red">Red</button>
-    <button class="blog-filter blue" type="button" data-filter="blue">Blue</button>
-    <button class="blog-filter purple" type="button" data-filter="purple">Purple</button>
-    <button class="blog-filter grey" type="button" data-filter="grey">Grey</button>
-  </div>
-
-  <span id="blogSearchCount" class="blog-search-count"></span>
-</div>
-  
-  <div class="post-grid">
+  <div class="post-grid" id="postGrid">
 
     {% for post in site.posts %}
+
       <article
-  class="post-card {{ post.color | default: 'grey' }}"
-  data-color="{{ post.color | default: 'grey' }}"
-  data-search="{{ post.title }} {{ post.kicker }} {{ post.lead }} {{ post.tags | join: ' ' }}"
->
+        class="post-card {{ post.color | default: 'grey' }}"
+        data-color="{{ post.color | default: 'grey' }}"
+        data-title="{{ post.title | downcase | escape }}"
+        data-kicker="{{ post.kicker | default: '' | downcase | escape }}"
+        data-tags="{{ post.tags | join: ' ' | downcase | escape }}"
+        data-search="{{ post.title }} {{ post.kicker }} {{ post.lead }} {{ post.tags | join: ' ' }}"
+        data-date="{{ post.date | date: '%s' }}"
+      >
 
         <a
           class="post-card-hit"
@@ -86,60 +173,140 @@ permalink: /blog/
         </a>
 
       </article>
+
     {% endfor %}
 
   </div>
+
 </section>
 
 <script>
   const blogSearch = document.getElementById('blogSearch');
-  const blogCards = [...document.querySelectorAll('.post-card')];
-  const blogFilters = [...document.querySelectorAll('.blog-filter')];
+  const blogSort = document.getElementById('blogSort');
+  const blogKicker = document.getElementById('blogKicker');
+  const blogTag = document.getElementById('blogTag');
+
+  const blogFilterToggle = document.getElementById('blogFilterToggle');
+  const blogFilterPanel = document.getElementById('blogFilterPanel');
+
+  const blogFilters = [
+    ...document.querySelectorAll('[data-filter-group="lens"] .blog-filter')
+  ];
+
+  const blogCards = [
+    ...document.querySelectorAll('.post-card')
+  ];
+
+  const postGrid = document.getElementById('postGrid');
   const blogCount = document.getElementById('blogSearchCount');
 
-  let activeFilter = 'all';
+  let activeLens = 'all';
 
   function updateBlog() {
     const query = blogSearch.value.trim().toLowerCase();
+    const kicker = blogKicker.value;
+    const tag = blogTag.value;
+
     let visible = 0;
 
     blogCards.forEach(card => {
       const searchable = card.dataset.search.toLowerCase();
       const color = card.dataset.color;
+      const cardKicker = card.dataset.kicker;
+      const cardTags = card.dataset.tags
+        .split(/\s+/)
+        .filter(Boolean);
 
       const matchesSearch =
-        !query || searchable.includes(query);
+        !query ||
+        searchable.includes(query);
 
-      const matchesFilter =
-        activeFilter === 'all' ||
-        color === activeFilter ||
-        (activeFilter === 'purple' && color === 'purp');
+      const matchesLens =
+        activeLens === 'all' ||
+        color === activeLens ||
+        (activeLens === 'purple' && color === 'purp');
 
-      const show = matchesSearch && matchesFilter;
+      const matchesKicker =
+        kicker === 'all' ||
+        cardKicker === kicker;
+
+      const matchesTag =
+        tag === 'all' ||
+        cardTags.includes(tag);
+
+      const show =
+        matchesSearch &&
+        matchesLens &&
+        matchesKicker &&
+        matchesTag;
 
       card.hidden = !show;
 
       if (show) visible++;
     });
 
-    const filtering = query || activeFilter !== 'all';
+    const filtering =
+      query ||
+      activeLens !== 'all' ||
+      kicker !== 'all' ||
+      tag !== 'all';
 
     blogCount.textContent = filtering
       ? `${visible} post${visible === 1 ? '' : 's'}`
       : '';
   }
 
+  function sortPosts() {
+    const mode = blogSort.value;
+
+    const sorted = [...blogCards].sort((a, b) => {
+      if (mode === 'oldest') {
+        return Number(a.dataset.date) - Number(b.dataset.date);
+      }
+
+      if (mode === 'title') {
+        return a.dataset.title.localeCompare(b.dataset.title);
+      }
+
+      return Number(b.dataset.date) - Number(a.dataset.date);
+    });
+
+    sorted.forEach(card => postGrid.appendChild(card));
+  }
+
   blogSearch.addEventListener('input', updateBlog);
+
+  blogKicker.addEventListener('change', updateBlog);
+  blogTag.addEventListener('change', updateBlog);
+
+  blogSort.addEventListener('change', () => {
+    sortPosts();
+    updateBlog();
+  });
 
   blogFilters.forEach(button => {
     button.addEventListener('click', () => {
-      activeFilter = button.dataset.filter;
+      activeLens = button.dataset.filter;
 
       blogFilters.forEach(filter => {
-        filter.classList.toggle('active', filter === button);
+        filter.classList.toggle(
+          'active',
+          filter === button
+        );
       });
 
       updateBlog();
     });
+  });
+
+  blogFilterToggle.addEventListener('click', () => {
+    const open = blogFilterPanel.hidden;
+
+    blogFilterPanel.hidden = !open;
+
+    blogFilterToggle.setAttribute(
+      'aria-expanded',
+      open ? 'true' : 'false'
+    );
   });
 </script>
