@@ -6,27 +6,47 @@ permalink: /blog/
 <!-- Disable AI Crawlers -->
 <meta name="robots" content="noai, noimageai, noarchive">
 
-<section class="hero">
-  <div class="wrap hero-inner">
-    <div>
+<section class="hero blog-hero">
+  <div class="wrap">
+    <div class="hero-inner">
       <div class="kicker">Blog</div>
       <h1 class="title">Build logs, notes, and rants</h1>
-      <p class="lead">Short write-ups while I migrate deeper material into the Knowledge Base.</p>
+      <p class="lead">
+        Technical write-ups, research, and things I learned while breaking stuff.
+      </p>
     </div>
   </div>
 </section>
 
-<section class="wrap">
-  <div class="grid">
+<section class="wrap blog-index">
+  <div class="post-grid">
     {% for post in site.posts %}
-      <article class="card">
-        {% if post.category %}
-          <span class="kicker-small {{ post.color | default: '' }}">{{ post.category }}</span>
-        {% endif %}
-        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-        <p>{{ post.excerpt | strip_html | truncate: 140 }}</p>
-        <p><small>{{ post.date | date: "%Y-%m-%d" }}</small></p>
-        <p><a href="{{ post.url }}">Read more →</a></p>
+      <article class="post-card {{ post.color | default: 'grey' }}">
+        <div class="post-card-meta">
+          {% if post.category %}
+            <span class="kicker-small {{ post.color | default: 'grey' }}">
+              {{ post.category }}
+            </span>
+          {% endif %}
+
+          <time datetime="{{ post.date | date_to_xmlschema }}">
+            {{ post.date | date: "%Y-%m-%d" }}
+          </time>
+        </div>
+
+        <h2>
+          <a href="{{ post.url | relative_url }}">
+            {{ post.title }}
+          </a>
+        </h2>
+
+        <p class="post-card-excerpt">
+          {{ post.excerpt | strip_html | truncate: 180 }}
+        </p>
+
+        <a class="post-card-link" href="{{ post.url | relative_url }}">
+          Read post →
+        </a>
       </article>
     {% endfor %}
   </div>
