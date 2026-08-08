@@ -1,11 +1,13 @@
 ---
-title: Gandalf AI
+title: "Gandalf AI: A Prompt Injection Challenge"
 lead: Investigating LLM guardrails through Lakera's Gandalf prompt injection challenge.
 kicker: AI
 tags:
-  - offensive
   - ai
   - llm
+  - offence
+  - gandalf
+  - prompt-injection
 color: red
 ---
 ## Introduction
