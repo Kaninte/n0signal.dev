@@ -4,36 +4,542 @@ title: projects
 permalink: /projects/
 ---
 <!-- Disable AI Crawlers -->
+
 <meta name="robots" content="noai, noimageai, noarchive">
 
-<section class="hero">
-  <div class="wrap hero-inner">
-    <div>
-      <div class="kicker">Projects</div>
-      <h1 class="title">Hands-on builds & write-ups</h1>
-      <p class="lead">Practical work—homelab, secure installs, CTFs, tooling.</p>
+<section class="hero blog-hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <h1 class="title">Projects</h1>
+      <p class="lead">
+        Hands-on builds, tooling, research, and things I made while figuring stuff out.
+      </p>
     </div>
   </div>
 </section>
 
-<section class="wrap">
-  <div class="grid">
-    {% assign items = site.projects | sort: "date" | reverse %}
-    {% for p in items %}
-      <article class="card">
-        <h3 class="card-title"><a href="{{ p.url }}">{{ p.title }}</a></h3>
+<section class="wrap blog-index">
+
+  <div class="blog-tools">
+
+<div class="blog-tools-main">
+
+  <div class="blog-search">
+    <label class="sr-only" for="projectSearch">Search projects</label>
+    <input
+      id="projectSearch"
+      type="search"
+      placeholder="Search projects..."
+      autocomplete="off"
+    >
+  </div>
+
+  <div class="blog-dropdown" data-dropdown="sort">
+    <button
+      class="blog-dropdown-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-haspopup="listbox"
+    >
+      <span class="blog-dropdown-value">Newest</span>
+      <span class="blog-dropdown-caret" aria-hidden="true"></span>
+    </button>
+
+    <div
+      class="blog-dropdown-menu"
+      role="listbox"
+      hidden
+    >
+      <button type="button" role="option" data-value="newest" aria-selected="true">Newest</button>
+      <button type="button" role="option" data-value="oldest" aria-selected="false">Oldest</button>
+      <button type="button" role="option" data-value="title" aria-selected="false">Title A–Z</button>
+    </div>
+  </div>
+
+  <button
+    id="projectFilterToggle"
+    class="blog-filter-toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="projectFilterPanel"
+  >
+    Filters
+  </button>
+
+</div>
+
+<div id="projectFilterPanel" class="blog-filter-panel" hidden>
+
+  <div class="blog-filter-group">
+    <span class="blog-filter-label">Project Lens</span>
+
+    <div class="blog-filters" data-filter-group="lens">
+      <button class="blog-filter active" type="button" data-filter="all">All</button>
+      <button class="blog-filter red" type="button" data-filter="red">Offense</button>
+      <button class="blog-filter blue" type="button" data-filter="blue">Defense</button>
+      <button class="blog-filter purple" type="button" data-filter="purple">Hybrid</button>
+      <button class="blog-filter grey" type="button" data-filter="grey">General</button>
+    </div>
+  </div>
+
+  <div class="blog-filter-group">
+    <span class="blog-filter-label">Type</span>
+
+    <div class="blog-dropdown" data-dropdown="category">
+      <button
+        class="blog-dropdown-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-haspopup="listbox"
+      >
+        <span class="blog-dropdown-value">All types</span>
+        <span class="blog-dropdown-caret" aria-hidden="true"></span>
+      </button>
+
+      <div class="blog-dropdown-menu" role="listbox" hidden>
+        <button type="button" role="option" data-value="all" aria-selected="true">All types</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="blog-filter-group">
+    <span class="blog-filter-label">Tag</span>
+
+    <div class="blog-dropdown" data-dropdown="tag">
+      <button
+        class="blog-dropdown-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-haspopup="listbox"
+      >
+        <span class="blog-dropdown-value">All tags</span>
+        <span class="blog-dropdown-caret" aria-hidden="true"></span>
+      </button>
+
+      <div class="blog-dropdown-menu" role="listbox" hidden>
+        <button type="button" role="option" data-value="all" aria-selected="true">All tags</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="blog-filter-actions">
+    <button id="projectClearFilters" class="blog-clear-filters" type="button">
+      Clear filters
+    </button>
+  </div>
+
+</div>
+
+<span id="projectSearchCount" class="blog-search-count" aria-live="polite"></span>
+
+  </div>
+
+  <div class="post-grid" id="projectGrid">
+
+{% assign items = site.projects | sort: "date" | reverse %}
+{% for p in items %}
+
+  {% capture search_text %}
+    {{ p.title }}
+    {{ p.category }}
+    {{ p.lead }}
+    {{ p.tags | join: ' ' }}
+  {% endcapture %}
+
+  <article
+    class="post-card {{ p.color | default: 'grey' | escape }}"
+    data-color="{{ p.color | default: 'grey' | downcase | escape }}"
+    data-title="{{ p.title | downcase | strip_html | escape }}"
+    data-category="{{ p.category | default: '' | downcase | strip_html | escape }}"
+    data-category-label="{{ p.category | default: '' | strip_html | escape }}"
+    data-tags="{{ p.tags | join: '||' | downcase | strip_html | escape }}"
+    data-tags-label="{{ p.tags | join: '||' | strip_html | escape }}"
+    data-search="{{ search_text | strip_html | strip_newlines | escape }}"
+    data-date="{% if p.date %}{{ p.date | date_to_xmlschema }}{% endif %}"
+  >
+
+    <a
+      class="post-card-hit"
+      href="{{ p.url | relative_url }}"
+      aria-label="View {{ p.title | escape }}"
+    >
+
+      <div class="post-card-meta">
 
         {% if p.category %}
-          <div class="meta">
-            <span class="badge {{ p.color | default: '' }}">{{ p.category }}</span>
-            {% if p.date %}<span class="dot">•</span><small>{{ p.date | date: "%Y-%m-%d" }}</small>{% endif %}
-          </div>
+          <span class="kicker-small {{ p.color | default: 'grey' }}">
+            {{ p.category }}
+          </span>
         {% endif %}
 
-        <p class="desc">{{ p.lead | default: p.excerpt | strip_html | truncate: 140 }}</p>
+        {% if p.date %}
+          <time datetime="{{ p.date | date_to_xmlschema }}">
+            {{ p.date | date: "%Y-%m-%d" }}
+          </time>
+        {% endif %}
 
-        <p class="more"><a href="{{ p.url }}">Read more →</a></p>
-      </article>
-    {% endfor %}
+      </div>
+
+      <h2>{{ p.title }}</h2>
+
+      {% if p.lead %}
+        <p class="post-card-excerpt">
+          {{ p.lead }}
+        </p>
+      {% elsif p.excerpt %}
+        <p class="post-card-excerpt">
+          {{ p.excerpt | strip_html | truncate: 160 }}
+        </p>
+      {% endif %}
+
+      <span class="post-card-link">
+        View project →
+      </span>
+
+    </a>
+
+  </article>
+
+{% endfor %}
+
   </div>
+
 </section>
+
+<script>
+(() => {
+  const projectSearch = document.getElementById('projectSearch');
+  const projectFilterToggle = document.getElementById('projectFilterToggle');
+  const projectFilterPanel = document.getElementById('projectFilterPanel');
+  const projectGrid = document.getElementById('projectGrid');
+  const projectCount = document.getElementById('projectSearchCount');
+  const projectClearFilters = document.getElementById('projectClearFilters');
+
+  const projectCards = [...document.querySelectorAll('#projectGrid .post-card')];
+  const lensButtons = [...document.querySelectorAll('[data-filter-group="lens"] .blog-filter')];
+  const dropdowns = [...document.querySelectorAll('.blog-dropdown')];
+
+  const state = {
+    lens: 'all',
+    category: 'all',
+    tag: 'all',
+    sort: 'newest'
+  };
+
+  function makeDropdownOption(value, label) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.setAttribute('role', 'option');
+    button.setAttribute('aria-selected', 'false');
+    button.dataset.value = value;
+    button.textContent = label;
+    return button;
+  }
+
+  function populateMetadataDropdowns() {
+    const categoryMap = new Map();
+    const tagMap = new Map();
+
+    projectCards.forEach(card => {
+      const categoryValue = (card.dataset.category || '').trim();
+      const categoryLabel = (card.dataset.categoryLabel || '').trim();
+
+      if (categoryValue && !categoryMap.has(categoryValue)) {
+        categoryMap.set(categoryValue, categoryLabel || categoryValue);
+      }
+
+      const tagValues = (card.dataset.tags || '')
+        .split('||')
+        .map(tag => tag.trim())
+        .filter(Boolean);
+
+      const tagLabels = (card.dataset.tagsLabel || '')
+        .split('||')
+        .map(tag => tag.trim());
+
+      tagValues.forEach((value, index) => {
+        if (!tagMap.has(value)) {
+          tagMap.set(value, tagLabels[index] || value);
+        }
+      });
+    });
+
+    const categoryMenu = document.querySelector('[data-dropdown="category"] .blog-dropdown-menu');
+    const tagMenu = document.querySelector('[data-dropdown="tag"] .blog-dropdown-menu');
+
+    [...categoryMap.entries()]
+      .sort((a, b) => a[1].localeCompare(b[1]))
+      .forEach(([value, label]) => {
+        categoryMenu.appendChild(makeDropdownOption(value, label));
+      });
+
+    [...tagMap.entries()]
+      .sort((a, b) => a[1].localeCompare(b[1]))
+      .forEach(([value, label]) => {
+        tagMenu.appendChild(makeDropdownOption(value, label));
+      });
+  }
+
+  function closeDropdown(dropdown, returnFocus = false) {
+    const toggle = dropdown.querySelector('.blog-dropdown-toggle');
+    const menu = dropdown.querySelector('.blog-dropdown-menu');
+
+    menu.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+
+    if (returnFocus) {
+      toggle.focus();
+    }
+  }
+
+  function closeAllDropdowns(except = null) {
+    dropdowns.forEach(dropdown => {
+      if (dropdown !== except) {
+        closeDropdown(dropdown);
+      }
+    });
+  }
+
+  function openDropdown(dropdown) {
+    const toggle = dropdown.querySelector('.blog-dropdown-toggle');
+    const menu = dropdown.querySelector('.blog-dropdown-menu');
+
+    closeAllDropdowns(dropdown);
+
+    menu.hidden = false;
+    toggle.setAttribute('aria-expanded', 'true');
+
+    const selected = menu.querySelector('[aria-selected="true"]');
+    const first = menu.querySelector('[role="option"]');
+    (selected || first)?.focus();
+  }
+
+  function selectDropdownOption(dropdown, option) {
+    const key = dropdown.dataset.dropdown;
+    const menu = dropdown.querySelector('.blog-dropdown-menu');
+    const valueDisplay = dropdown.querySelector('.blog-dropdown-value');
+
+    menu.querySelectorAll('[role="option"]').forEach(item => {
+      item.setAttribute('aria-selected', item === option ? 'true' : 'false');
+    });
+
+    state[key] = option.dataset.value;
+    valueDisplay.textContent = option.textContent;
+
+    closeDropdown(dropdown, true);
+
+    if (key === 'sort') {
+      sortProjects();
+    }
+
+    updateProjects();
+  }
+
+  function resetDropdown(key, value = 'all') {
+    const dropdown = document.querySelector(`[data-dropdown="${key}"]`);
+    if (!dropdown) return;
+
+    const menu = dropdown.querySelector('.blog-dropdown-menu');
+    const option = menu.querySelector(`[data-value="${value}"]`);
+    const valueDisplay = dropdown.querySelector('.blog-dropdown-value');
+
+    if (!option) return;
+
+    menu.querySelectorAll('[role="option"]').forEach(item => {
+      item.setAttribute('aria-selected', item === option ? 'true' : 'false');
+    });
+
+    state[key] = value;
+    valueDisplay.textContent = option.textContent;
+    closeDropdown(dropdown);
+  }
+
+  function updateProjects() {
+    const query = projectSearch.value.trim().toLowerCase();
+    let visible = 0;
+
+    projectCards.forEach(card => {
+      const searchable = (card.dataset.search || '').toLowerCase();
+      const color = (card.dataset.color || '').toLowerCase();
+      const category = (card.dataset.category || '').toLowerCase();
+
+      const tags = (card.dataset.tags || '')
+        .split('||')
+        .map(tag => tag.trim())
+        .filter(Boolean);
+
+      const matchesSearch = !query || searchable.includes(query);
+
+      const matchesLens =
+        state.lens === 'all' ||
+        color === state.lens ||
+        (state.lens === 'purple' && color === 'purp');
+
+      const matchesCategory =
+        state.category === 'all' ||
+        category === state.category;
+
+      const matchesTag =
+        state.tag === 'all' ||
+        tags.includes(state.tag);
+
+      const show =
+        matchesSearch &&
+        matchesLens &&
+        matchesCategory &&
+        matchesTag;
+
+      card.hidden = !show;
+
+      if (show) {
+        visible++;
+      }
+    });
+
+    const filtering =
+      query ||
+      state.lens !== 'all' ||
+      state.category !== 'all' ||
+      state.tag !== 'all';
+
+    projectCount.textContent =
+      filtering
+        ? `${visible} project${visible === 1 ? '' : 's'}`
+        : '';
+  }
+
+  function sortProjects() {
+    const sorted = [...projectCards].sort((a, b) => {
+      if (state.sort === 'title') {
+        return a.dataset.title.localeCompare(b.dataset.title);
+      }
+
+      const dateA = Date.parse(a.dataset.date) || 0;
+      const dateB = Date.parse(b.dataset.date) || 0;
+
+      if (state.sort === 'oldest') {
+        return dateA - dateB;
+      }
+
+      return dateB - dateA;
+    });
+
+    sorted.forEach(card => projectGrid.appendChild(card));
+  }
+
+  projectSearch.addEventListener('input', updateProjects);
+
+  lensButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      state.lens = button.dataset.filter;
+
+      lensButtons.forEach(item => {
+        item.classList.toggle('active', item === button);
+      });
+
+      updateProjects();
+    });
+  });
+
+  projectClearFilters.addEventListener('click', () => {
+    state.lens = 'all';
+
+    lensButtons.forEach(button => {
+      button.classList.toggle('active', button.dataset.filter === 'all');
+    });
+
+    resetDropdown('category');
+    resetDropdown('tag');
+
+    updateProjects();
+  });
+
+  projectFilterToggle.addEventListener('click', () => {
+    const opening = projectFilterPanel.hidden;
+
+    projectFilterPanel.hidden = !opening;
+    projectFilterToggle.setAttribute('aria-expanded', opening ? 'true' : 'false');
+
+    if (!opening) {
+      closeAllDropdowns();
+    }
+  });
+
+  dropdowns.forEach(dropdown => {
+    const toggle = dropdown.querySelector('.blog-dropdown-toggle');
+    const menu = dropdown.querySelector('.blog-dropdown-menu');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+
+      if (isOpen) {
+        closeDropdown(dropdown);
+      } else {
+        openDropdown(dropdown);
+      }
+    });
+
+    menu.addEventListener('click', event => {
+      const option = event.target.closest('[role="option"]');
+      if (!option) return;
+
+      selectDropdownOption(dropdown, option);
+    });
+
+    menu.addEventListener('keydown', event => {
+      const options = [...menu.querySelectorAll('[role="option"]')];
+      const currentIndex = options.indexOf(document.activeElement);
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeDropdown(dropdown, true);
+        return;
+      }
+
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        options[Math.min(currentIndex + 1, options.length - 1)]?.focus();
+        return;
+      }
+
+      if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        options[Math.max(currentIndex - 1, 0)]?.focus();
+        return;
+      }
+
+      if (event.key === 'Home') {
+        event.preventDefault();
+        options[0]?.focus();
+        return;
+      }
+
+      if (event.key === 'End') {
+        event.preventDefault();
+        options[options.length - 1]?.focus();
+      }
+    });
+
+    toggle.addEventListener('keydown', event => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        openDropdown(dropdown);
+      }
+    });
+  });
+
+  document.addEventListener('click', event => {
+    const clickedDropdown = event.target.closest('.blog-dropdown');
+
+    dropdowns.forEach(dropdown => {
+      if (dropdown !== clickedDropdown) {
+        closeDropdown(dropdown);
+      }
+    });
+  });
+
+  populateMetadataDropdowns();
+  sortProjects();
+  updateProjects();
+})();
+</script>
