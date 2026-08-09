@@ -828,7 +828,7 @@ footer{
   overflow-wrap:anywhere;
   word-break:break-word;
 
-  font-size:.9em;
+  font-size:.92em;
   line-height:1.55;
 }
 
@@ -894,6 +894,7 @@ footer{
   color:#dce3ee;
   background:rgba(255,255,255,.035);
   border:1px solid rgba(162,168,183,.18);
+  font-size:.92em;
 }
 
 .prose.wide{
@@ -1547,4 +1548,3 @@ article.card .badge.purple{
     width:100%;
   }
 }
-
