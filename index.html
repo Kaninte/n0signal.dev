@@ -2,72 +2,150 @@
 layout: default
 title: portfolio
 description: "Cyber Security Portfolio — projects, blog, and knowledge base."
-home_css: true
 ---
 <!-- Disable AI Crawlers -->
+
 <meta name="robots" content="noai, noimageai, noarchive">
 
 <!-- ===== Hero ===== -->
-<section class="hero">
-  <div class="wrap hero-inner">
-    <div>
-      <div class="kicker">Cyber Security Portfolio</div>
-      <h1 class="title"><span style="color:#cbbaff">n0signal</span> // break · analyze · defend [WIP]</h1>
-      <p class="lead">Hands-on projects and write-ups from my shift into cybersecurity.</p>
-      <div class="cta">
-        <a class="btn" href="/projects">View Projects</a>
-        <a class="btn alt" href="https://0xkb.n0signal.dev">Open Knowledge Base</a>
-      </div>
-    </div>
+
+<section class="hero blog-hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <h1 class="title">n0signal</h1>
+      <p class="lead">
+        Cyber security portfolio — hands-on projects, technical write-ups, and notes from breaking, analysing, and defending systems.
+      </p>
+
+  <div class="cta">
+    <a class="btn" href="{{ '/projects/' | relative_url }}">View Projects</a>
+    <a class="btn alt" href="https://0xkb.n0signal.dev">Open Knowledge Base</a>
+  </div>
+</div>
+
   </div>
 </section>
 
 <!-- ===== Featured Projects ===== -->
-<section class="wrap">
+
+<section class="wrap blog-index">
   <h2>Featured Projects</h2>
-  <div class="grid">
-    <article class="card">
-      <span class="kicker-small">Test 1</span>
-      <h3>Arch Linux · Minimal Secure Install</h3>
-      <p>Install Arch.</p>
-      <p><a href="/projects/arch-secure">Read more →</a></p>
-    </article>
-    <article class="card">
-      <span class="kicker-small">Test 2</span>
-      <h3>Breaking LLMs</h3>
-      <p>Learn with gandalf.</p>
-      <p><a href="/projects/llm-jb">Read more →</a></p>
-    </article>
-    <article class="card">
-      <span class="kicker-small">Test 3</span>
-      <h3>Homelab Setup</h3>
-      <p>Sick homelab set up</p>
-      <p><a href="/projects/homelab">Read more →</a></p>
-    </article>
+
+  <div class="post-grid">
+    {% assign featured_projects = site.projects | where: "featured", true | sort: "date" | reverse %}
+
+{% if featured_projects.size > 0 %}
+  {% assign project_items = featured_projects %}
+{% else %}
+  {% assign project_items = site.projects | sort: "date" | reverse %}
+{% endif %}
+
+{% for p in project_items limit:3 %}
+  <article class="post-card {{ p.color | default: 'grey' | escape }}">
+
+    <a
+      class="post-card-hit"
+      href="{{ p.url | relative_url }}"
+      aria-label="View {{ p.title | escape }}"
+    >
+
+      <div class="post-card-meta">
+
+        {% if p.kicker %}
+          <span class="kicker-small {{ p.color | default: 'grey' }}">
+            {{ p.kicker }}
+          </span>
+        {% endif %}
+
+        {% if p.date %}
+          <time datetime="{{ p.date | date_to_xmlschema }}">
+            {{ p.date | date: "%Y-%m-%d" }}
+          </time>
+        {% endif %}
+
+      </div>
+
+      <h2>{{ p.title }}</h2>
+
+      {% if p.lead %}
+        <p class="post-card-excerpt">
+          {{ p.lead }}
+        </p>
+      {% elsif p.excerpt %}
+        <p class="post-card-excerpt">
+          {{ p.excerpt | strip_html | truncate: 160 }}
+        </p>
+      {% endif %}
+
+      <span class="post-card-link">
+        View project →
+      </span>
+
+    </a>
+
+  </article>
+{% endfor %}
+
+  </div>
+
+  <div class="cta" style="margin-top:1rem">
+    <a class="btn" href="{{ '/projects/' | relative_url }}">All Projects</a>
   </div>
 </section>
 
-<!-- ===== Blog / Resources ===== -->
-<section class="wrap">
+<!-- ===== Latest Posts ===== -->
+
+<section class="wrap blog-index">
   <h2>Latest Posts</h2>
-  <div class="grid">
-    <article class="card">
-      <span class="kicker-small">Test 4</span>
-      <h3>Why?</h3>
-      <p>Just Why</p>
-      <p><a href="/blog/why">Read more →</a></p>
-    </article>
-    <article class="card">
-      <span class="kicker-small">Test 5</span>
-      <h3>Why i moved from lighting into cyber</h3>
-      <p>Need to learn more.</p>
-      <p><a href="/blog/jobswitch">Read more →</a></p>
-    </article>
-    <article class="card">
-      <span class="kicker-small">Test 6</span>
-      <h3>Ethernet Punch Down</h3>
-      <p>How do punchdown netword?</p>
-      <p><a href="/blog/ethernet">Open →</a></p>
-    </article>
+
+  <div class="post-grid">
+    {% for post in site.posts limit:3 %}
+      <article class="post-card {{ post.color | default: 'grey' | escape }}">
+
+    <a
+      class="post-card-hit"
+      href="{{ post.url | relative_url }}"
+      aria-label="Read {{ post.title | escape }}"
+    >
+
+      <div class="post-card-meta">
+
+        {% if post.kicker %}
+          <span class="kicker-small {{ post.color | default: 'grey' }}">
+            {{ post.kicker }}
+          </span>
+        {% endif %}
+
+        <time datetime="{{ post.date | date_to_xmlschema }}">
+          {{ post.date | date: "%Y-%m-%d" }}
+        </time>
+
+      </div>
+
+      <h2>{{ post.title }}</h2>
+
+      {% if post.lead %}
+        <p class="post-card-excerpt">
+          {{ post.lead }}
+        </p>
+      {% elsif post.excerpt %}
+        <p class="post-card-excerpt">
+          {{ post.excerpt | strip_html | truncate: 160 }}
+        </p>
+      {% endif %}
+
+      <span class="post-card-link">
+        Read post →
+      </span>
+
+    </a>
+
+  </article>
+{% endfor %}
+
+  </div>
+
+  <div class="cta" style="margin-top:1rem">
+    <a class="btn" href="{{ '/blog/' | relative_url }}">All Posts</a>
   </div>
 </section>
