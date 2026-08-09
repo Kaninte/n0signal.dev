@@ -3,6 +3,7 @@ layout: default
 title: projects
 permalink: /projects/
 ---
+
 <!-- Disable AI Crawlers -->
 
 <meta name="robots" content="noai, noimageai, noarchive">
@@ -85,7 +86,7 @@ permalink: /projects/
   <div class="blog-filter-group">
     <span class="blog-filter-label">Type</span>
 
-    <div class="blog-dropdown" data-dropdown="category">
+    <div class="blog-dropdown" data-dropdown="kicker">
       <button
         class="blog-dropdown-toggle"
         type="button"
@@ -141,7 +142,7 @@ permalink: /projects/
 
   {% capture search_text %}
     {{ p.title }}
-    {{ p.category }}
+    {{ p.kicker }}
     {{ p.lead }}
     {{ p.tags | join: ' ' }}
   {% endcapture %}
@@ -150,8 +151,8 @@ permalink: /projects/
     class="post-card {{ p.color | default: 'grey' | escape }}"
     data-color="{{ p.color | default: 'grey' | downcase | escape }}"
     data-title="{{ p.title | downcase | strip_html | escape }}"
-    data-category="{{ p.category | default: '' | downcase | strip_html | escape }}"
-    data-category-label="{{ p.category | default: '' | strip_html | escape }}"
+    data-kicker="{{ p.kicker | default: '' | downcase | strip_html | escape }}"
+    data-kicker-label="{{ p.kicker | default: '' | strip_html | escape }}"
     data-tags="{{ p.tags | join: '||' | downcase | strip_html | escape }}"
     data-tags-label="{{ p.tags | join: '||' | strip_html | escape }}"
     data-search="{{ search_text | strip_html | strip_newlines | escape }}"
@@ -166,9 +167,9 @@ permalink: /projects/
 
       <div class="post-card-meta">
 
-        {% if p.category %}
+        {% if p.kicker %}
           <span class="kicker-small {{ p.color | default: 'grey' }}">
-            {{ p.category }}
+            {{ p.kicker }}
           </span>
         {% endif %}
 
@@ -221,7 +222,7 @@ permalink: /projects/
 
   const state = {
     lens: 'all',
-    category: 'all',
+    kicker: 'all',
     tag: 'all',
     sort: 'newest'
   };
@@ -237,15 +238,15 @@ permalink: /projects/
   }
 
   function populateMetadataDropdowns() {
-    const categoryMap = new Map();
+    const kickerMap = new Map();
     const tagMap = new Map();
 
     projectCards.forEach(card => {
-      const categoryValue = (card.dataset.category || '').trim();
-      const categoryLabel = (card.dataset.categoryLabel || '').trim();
+      const kickerValue = (card.dataset.kicker || '').trim();
+      const kickerLabel = (card.dataset.kickerLabel || '').trim();
 
-      if (categoryValue && !categoryMap.has(categoryValue)) {
-        categoryMap.set(categoryValue, categoryLabel || categoryValue);
+      if (kickerValue && !kickerMap.has(kickerValue)) {
+        kickerMap.set(kickerValue, kickerLabel || kickerValue);
       }
 
       const tagValues = (card.dataset.tags || '')
@@ -264,13 +265,13 @@ permalink: /projects/
       });
     });
 
-    const categoryMenu = document.querySelector('[data-dropdown="category"] .blog-dropdown-menu');
+    const kickerMenu = document.querySelector('[data-dropdown="kicker"] .blog-dropdown-menu');
     const tagMenu = document.querySelector('[data-dropdown="tag"] .blog-dropdown-menu');
 
-    [...categoryMap.entries()]
+    [...kickerMap.entries()]
       .sort((a, b) => a[1].localeCompare(b[1]))
       .forEach(([value, label]) => {
-        categoryMenu.appendChild(makeDropdownOption(value, label));
+        kickerMenu.appendChild(makeDropdownOption(value, label));
       });
 
     [...tagMap.entries()]
@@ -361,7 +362,7 @@ permalink: /projects/
     projectCards.forEach(card => {
       const searchable = (card.dataset.search || '').toLowerCase();
       const color = (card.dataset.color || '').toLowerCase();
-      const category = (card.dataset.category || '').toLowerCase();
+      const kicker = (card.dataset.kicker || '').toLowerCase();
 
       const tags = (card.dataset.tags || '')
         .split('||')
@@ -375,9 +376,9 @@ permalink: /projects/
         color === state.lens ||
         (state.lens === 'purple' && color === 'purp');
 
-      const matchesCategory =
-        state.category === 'all' ||
-        category === state.category;
+      const matchesKicker =
+        state.kicker === 'all' ||
+        kicker === state.kicker;
 
       const matchesTag =
         state.tag === 'all' ||
@@ -386,7 +387,7 @@ permalink: /projects/
       const show =
         matchesSearch &&
         matchesLens &&
-        matchesCategory &&
+        matchesKicker &&
         matchesTag;
 
       card.hidden = !show;
@@ -399,7 +400,7 @@ permalink: /projects/
     const filtering =
       query ||
       state.lens !== 'all' ||
-      state.category !== 'all' ||
+      state.kicker !== 'all' ||
       state.tag !== 'all';
 
     projectCount.textContent =
@@ -448,7 +449,7 @@ permalink: /projects/
       button.classList.toggle('active', button.dataset.filter === 'all');
     });
 
-    resetDropdown('category');
+    resetDropdown('kicker');
     resetDropdown('tag');
 
     updateProjects();
