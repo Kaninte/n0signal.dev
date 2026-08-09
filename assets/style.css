@@ -330,7 +330,7 @@ nav a.nav-kb:hover{
 .hero.post-hero .hero-inner{
   display:block;
   width:100%;
-  max-width:92ch;
+  max-width:96ch;
   margin:0 auto;
 }
 
@@ -456,7 +456,7 @@ nav a.nav-kb:hover{
 .hero.blog-hero .hero-inner{
   display:block;
   width:100%;
-  max-width:92ch;
+  max-width:96ch;
   margin:0 auto;
 }
 
@@ -891,9 +891,9 @@ footer{
 
 .prose :not(pre) > code{
   padding:.12rem .32rem;
-  color:#d9ceff;
-  background:rgba(141,107,255,.10);
-  border:1px solid rgba(141,107,255,.18);
+  color:#dce3ee;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(162,168,183,.18);
 }
 
 .prose.wide{
@@ -1547,3 +1547,4 @@ article.card .badge.purple{
     width:100%;
   }
 }
+
