@@ -12,6 +12,10 @@ collections:
     output: true
     permalink: /projects/:slug/
 
+  about:
+    output: true
+    permalink: /about/:slug/
+
 defaults:
   - scope:
       path: ""
