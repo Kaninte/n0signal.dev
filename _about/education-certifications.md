@@ -26,6 +26,7 @@ Completed: 28/08/2025
 - [x] Cyber Ethics - CR
 - [x] Principles of Security Engineering - DN
 - [x] Data Security & Privacy - DN
+
 #### Graduate Diploma
 Completed: 23/07/2026
 - [x] Penetration Testing - DN
