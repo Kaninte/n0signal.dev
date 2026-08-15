@@ -36,5 +36,5 @@ defaults:
       path: ""
       type: about
     values:
-      layout: default
+      layout: about
       permalink: /about/:slug/
