@@ -11,7 +11,8 @@
 
   const parseMetaText = (text) => {
     const meta = {};
-    const pattern = /(Institution|Status|Type|Completed):\s*(.*?)(?=\s+(?:Institution|Status|Type|Completed):|$)/g;
+    const pattern =
+      /(Institution|Status|Type|Completed):\s*(.*?)(?=\s+(?:Institution|Status|Type|Completed):|$)/g;
 
     for (const match of text.matchAll(pattern)) {
       meta[match[1]] = match[2].trim();
@@ -30,61 +31,77 @@
     return meta;
   };
 
-  const splitSubjectGrade = (li, showCheckboxes) => {
-    const checkbox = li.querySelector('input[type="checkbox"]');
+  /*
+    Rebuild a task-list row cleanly.
+
+    Kramdown normally renders:
+      <li class="task-list-item">
+        <input type="checkbox" ...>
+        Subject - DN
+      </li>
+
+    Completed qualifications discard the checkbox entirely.
+    In-progress qualifications keep the checkbox in its own column.
+  */
+  const formatSubjectRow = (li, showCheckbox) => {
+    const originalCheckbox = li.querySelector('input[type="checkbox"]');
+    const checked = originalCheckbox?.checked ?? false;
+
     const raw = (li.textContent || "").trim();
     const match = raw.match(/^(.*?)\s+-\s+(HD|DN|CR|PS|FL)$/i);
 
-    const name = match ? match[1].trim() : raw;
+    const subjectName = match ? match[1].trim() : raw;
     const grade = match ? match[2].toUpperCase() : "";
 
-    if (!showCheckboxes && checkbox) {
-      checkbox.remove();
+    // Fully rebuild the row instead of trying to preserve Kramdown's child nodes.
+    li.replaceChildren();
+    li.classList.remove("task-list-item");
+
+    if (showCheckbox) {
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = checked;
+      checkbox.disabled = true;
+      checkbox.className = "about-progress-check";
+      checkbox.setAttribute(
+        "aria-label",
+        `${checked ? "Completed" : "Not completed"}: ${subjectName}`
+      );
+      li.appendChild(checkbox);
     }
 
-    Array.from(li.childNodes).forEach((node) => {
-      if (node !== checkbox || !showCheckboxes) {
-        if (node.nodeType !== Node.ELEMENT_NODE || node !== checkbox) {
-          node.remove();
-        }
-      }
-    });
+    const name = document.createElement("span");
+    name.className = "subject-name";
+    name.textContent = subjectName;
+    li.appendChild(name);
 
-    if (showCheckboxes && checkbox && !checkbox.isConnected) {
-      li.prepend(checkbox);
-    }
-
-    const nameSpan = document.createElement("span");
-    nameSpan.className = "subject-name";
-    nameSpan.textContent = name;
-    li.appendChild(nameSpan);
-
-    const gradeSpan = document.createElement("span");
-    gradeSpan.className = "subject-grade";
+    const gradeEl = document.createElement("span");
+    gradeEl.className = "subject-grade";
 
     if (grade) {
-      gradeSpan.dataset.grade = grade;
-      gradeSpan.textContent = grade;
-      gradeSpan.setAttribute("aria-label", `Grade ${grade}`);
+      gradeEl.dataset.grade = grade;
+      gradeEl.textContent = grade;
+      gradeEl.setAttribute("aria-label", `Grade ${grade}`);
     } else {
-      gradeSpan.textContent = "—";
-      gradeSpan.setAttribute("aria-label", "No grade recorded");
+      gradeEl.textContent = "—";
+      gradeEl.setAttribute("aria-label", "No grade recorded");
     }
 
-    li.appendChild(gradeSpan);
+    li.appendChild(gradeEl);
   };
 
-  const addSubjectHeader = (stage, showCheckboxes) => {
+  const addSubjectHeader = (stage, showCheckbox) => {
     const list = stage.querySelector(":scope > ul");
     if (!list || stage.querySelector(":scope > .about-subject-head")) return;
 
     const head = document.createElement("div");
     head.className = "about-subject-head";
 
-    if (showCheckboxes) {
-      const blank = document.createElement("span");
-      blank.setAttribute("aria-hidden", "true");
-      head.appendChild(blank);
+    if (showCheckbox) {
+      const progress = document.createElement("span");
+      progress.textContent = "";
+      progress.setAttribute("aria-hidden", "true");
+      head.appendChild(progress);
     }
 
     const subject = document.createElement("span");
@@ -103,7 +120,6 @@
   let section = null;
   let record = null;
   let recordBody = null;
-  let recordMeta = null;
   let stage = null;
 
   const makeSection = (heading) => {
@@ -134,8 +150,9 @@
 
     if (meta.Type) record.dataset.type = meta.Type;
 
-    const isComplete = (meta.Status || "").toUpperCase() === "COMPLETE";
-    const isInProgress = (meta.Status || "").toUpperCase() === "IN PROGRESS";
+    const statusValue = (meta.Status || "").toUpperCase();
+    const isComplete = statusValue === "COMPLETE";
+    const isInProgress = statusValue === "IN PROGRESS";
 
     record.classList.toggle("is-complete", isComplete);
     record.classList.toggle("is-in-progress", isInProgress);
@@ -167,7 +184,6 @@
 
       const dd = document.createElement("dd");
       dd.textContent = value || "—";
-
       if (!value) dd.classList.add("is-empty");
 
       item.append(dt, dd);
@@ -176,17 +192,19 @@
 
     recordBody.prepend(dl);
 
-    const stages = Array.from(recordBody.querySelectorAll(":scope > .about-study-stage"));
+    const stages = Array.from(
+      recordBody.querySelectorAll(":scope > .about-study-stage")
+    );
 
     for (const stageEl of stages) {
       const list = stageEl.querySelector(":scope > ul");
 
       if (list) {
         list.querySelectorAll(":scope > li").forEach((li) => {
-          splitSubjectGrade(li, !isComplete);
+          formatSubjectRow(li, isInProgress);
         });
 
-        addSubjectHeader(stageEl, !isComplete);
+        addSubjectHeader(stageEl, isInProgress);
       }
     }
 
@@ -202,19 +220,28 @@
       toggle.type = "button";
       toggle.className = "about-record-toggle";
       toggle.setAttribute("aria-expanded", "false");
-      toggle.setAttribute("aria-label", `Expand ${record.querySelector(".about-record-title")?.textContent || "record"}`);
 
-      const detailsId = `about-record-details-${Math.random().toString(36).slice(2, 9)}`;
+      const title =
+        record.querySelector(".about-record-title")?.textContent || "record";
+
+      toggle.setAttribute("aria-label", `Expand ${title}`);
+
+      const detailsId =
+        "about-record-details-" + Math.random().toString(36).slice(2, 9);
+
       details.id = detailsId;
       toggle.setAttribute("aria-controls", detailsId);
 
       toggle.addEventListener("click", () => {
         const expanded = toggle.getAttribute("aria-expanded") === "true";
+
         toggle.setAttribute("aria-expanded", String(!expanded));
         details.hidden = expanded;
 
-        const title = record.querySelector(".about-record-title")?.textContent || "record";
-        toggle.setAttribute("aria-label", `${expanded ? "Expand" : "Collapse"} ${title}`);
+        toggle.setAttribute(
+          "aria-label",
+          `${expanded ? "Expand" : "Collapse"} ${title}`
+        );
       });
 
       record.querySelector(".about-record-head")?.appendChild(toggle);
@@ -291,10 +318,20 @@
     }
 
     if (stage) {
-      if (tag === "P" && /^Completed:/.test((node.textContent || "").trim())) {
-        const value = (node.textContent || "").replace(/^Completed:\s*/, "").trim();
+      if (
+        tag === "P" &&
+        /^Completed:/.test((node.textContent || "").trim())
+      ) {
+        const value = (node.textContent || "")
+          .replace(/^Completed:\s*/, "")
+          .trim();
+
         const date = stage.querySelector(".about-study-stage-date");
-        if (date) date.textContent = value ? `Completed ${value}` : "";
+
+        if (date) {
+          date.textContent = value ? `Completed ${value}` : "";
+        }
+
         continue;
       }
 
