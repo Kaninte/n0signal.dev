@@ -1,5 +1,7 @@
 ---
 title: Education & Certifications
+page_class: education-certifications
+lead:
 ---
 ## Formal Study
 ### Certificate III in Visual Arts (Photography)
