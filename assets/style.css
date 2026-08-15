@@ -1549,26 +1549,28 @@ article.card .badge.purple{
   }
 }
 
+/* ===== About / Shared Pages ===== */
 
-/* ===== About / Structured Records ===== */
-
-.about-record-page{
+.about-page{
   padding-top:1.5rem;
   padding-bottom:2rem;
 }
 
-.about-record-source{
+/* ===== About / Education & Certifications ===== */
+
+.about-page.education-certifications .about-record-source{
   width:100%;
   max-width:1100px;
   margin:0 auto;
 }
 
 /* Major Markdown sections: ## Formal Study / ## Certifications */
-.about-record-section{
+.about-page.education-certifications .about-record-section{
   margin:0 0 3.25rem;
+  padding:0;
 }
 
-.about-record-section-header{
+.about-page.education-certifications .about-record-section-header{
   display:flex;
   align-items:center;
   gap:.65rem;
@@ -1577,21 +1579,21 @@ article.card .badge.purple{
   border-bottom:1px solid var(--border);
 }
 
-.about-record-section-header::before{
+.about-page.education-certifications .about-record-section-header::before{
   content:"//";
   color:var(--muted);
   font-family:var(--mono);
   font-weight:500;
 }
 
-.about-record-section-header h2{
+.about-page.education-certifications .about-record-section-header h2{
   margin:0;
   font-size:1.25rem;
   letter-spacing:.02em;
 }
 
 /* Individual qualifications / certifications */
-.about-record{
+.about-page.education-certifications .about-record{
   --record-accent:var(--muted);
 
   position:relative;
@@ -1602,7 +1604,7 @@ article.card .badge.purple{
   border:1px solid var(--border);
 }
 
-.about-record::before{
+.about-page.education-certifications .about-record::before{
   content:"";
   position:absolute;
   top:-1px;
@@ -1615,20 +1617,20 @@ article.card .badge.purple{
   pointer-events:none;
 }
 
-.about-record[data-type="Cyber Security"]{
+.about-page.education-certifications .about-record[data-type="Cyber Security"]{
   --record-accent:var(--blue);
 }
 
-.about-record[data-type="Live Production"]{
+.about-page.education-certifications .about-record[data-type="Live Production"]{
   --record-accent:var(--purple);
 }
 
-.about-record[data-type="Visual Arts"],
-.about-record[data-type="Safety"]{
+.about-page.education-certifications .about-record[data-type="Visual Arts"],
+.about-page.education-certifications .about-record[data-type="Safety"]{
   --record-accent:var(--muted);
 }
 
-.about-record-head{
+.about-page.education-certifications .about-record-head{
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
@@ -1636,13 +1638,14 @@ article.card .badge.purple{
   margin-bottom:1rem;
 }
 
-.about-record-title{
+.about-page.education-certifications .about-record-title{
   margin:0;
+  color:var(--fg);
   font-size:1.08rem;
   line-height:1.35;
 }
 
-.about-record-status{
+.about-page.education-certifications .about-record-status{
   flex:0 0 auto;
   padding:.24rem .48rem;
   color:var(--muted);
@@ -1657,24 +1660,24 @@ article.card .badge.purple{
   text-transform:uppercase;
 }
 
-.about-record[data-type="Cyber Security"] .about-record-status{
+.about-page.education-certifications .about-record[data-type="Cyber Security"] .about-record-status{
   color:var(--blue);
   background:rgba(77,166,255,.07);
   border-color:rgba(77,166,255,.24);
 }
 
-.about-record-meta{
+.about-page.education-certifications .about-record-meta{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:.75rem 1rem;
   margin:0;
 }
 
-.about-record-meta-item{
+.about-page.education-certifications .about-record-meta-item{
   min-width:0;
 }
 
-.about-record-meta dt{
+.about-page.education-certifications .about-record-meta dt{
   margin:0 0 .22rem;
   color:var(--muted);
   font-family:var(--mono);
@@ -1683,25 +1686,25 @@ article.card .badge.purple{
   text-transform:uppercase;
 }
 
-.about-record-meta dd{
+.about-page.education-certifications .about-record-meta dd{
   margin:0;
   color:var(--fg);
   font-size:.9rem;
   line-height:1.45;
 }
 
-.about-record-meta dd.is-empty{
+.about-page.education-certifications .about-record-meta dd.is-empty{
   color:rgba(162,168,183,.45);
 }
 
 /* Nested study stages: #### Graduate Certificate / Graduate Diploma */
-.about-study-stage{
+.about-page.education-certifications .about-study-stage{
   margin-top:1.35rem;
-  padding-top:1rem;
+  padding:1rem 0 0;
   border-top:1px solid var(--border);
 }
 
-.about-study-stage-head{
+.about-page.education-certifications .about-study-stage-head{
   display:flex;
   align-items:baseline;
   justify-content:space-between;
@@ -1709,7 +1712,7 @@ article.card .badge.purple{
   margin-bottom:.75rem;
 }
 
-.about-study-stage-title{
+.about-page.education-certifications .about-study-stage-title{
   margin:0;
   color:var(--fg);
   font-family:var(--mono);
@@ -1717,13 +1720,13 @@ article.card .badge.purple{
   letter-spacing:.02em;
 }
 
-.about-study-stage-date{
+.about-page.education-certifications .about-study-stage-date{
   color:var(--muted);
   font-family:var(--mono);
   font-size:.74rem;
 }
 
-.about-study-stage ul{
+.about-page.education-certifications .about-study-stage ul{
   display:grid;
   gap:.35rem;
   margin:.25rem 0 0;
@@ -1731,7 +1734,7 @@ article.card .badge.purple{
   list-style:none;
 }
 
-.about-study-stage li{
+.about-page.education-certifications .about-study-stage li{
   display:grid;
   grid-template-columns:1.15rem minmax(0,1fr) auto;
   gap:.55rem;
@@ -1743,11 +1746,11 @@ article.card .badge.purple{
   font-size:.9rem;
 }
 
-.about-study-stage li:last-child{
+.about-page.education-certifications .about-study-stage li:last-child{
   border-bottom:0;
 }
 
-.about-study-stage input[type="checkbox"]{
+.about-page.education-certifications .about-study-stage input[type="checkbox"]{
   width:.85rem;
   height:.85rem;
   margin:0;
@@ -1755,54 +1758,53 @@ article.card .badge.purple{
   pointer-events:none;
 }
 
-.about-study-stage .subject-name{
+.about-page.education-certifications .about-study-stage .subject-name{
   min-width:0;
 }
 
-.about-study-stage .subject-grade{
+.about-page.education-certifications .about-study-stage .subject-grade{
   color:var(--fg);
   font-family:var(--mono);
   font-size:.78rem;
   font-weight:600;
 }
 
-.about-study-stage .subject-grade[data-grade="HD"]{
+.about-page.education-certifications .about-study-stage .subject-grade[data-grade="HD"]{
   color:var(--blue);
 }
 
-/* Hide the unprocessed source briefly; JS reveals/falls back safely. */
-.about-record-source.is-processing{
+/* JS only hides this while transforming the Markdown structure. */
+.about-page.education-certifications .about-record-source.is-processing{
   visibility:hidden;
 }
 
 @media (max-width:760px){
-  .about-record{
+  .about-page.education-certifications .about-record{
     padding:1.15rem 1rem;
   }
 
-  .about-record-head{
+  .about-page.education-certifications .about-record-head{
     flex-direction:column;
     gap:.65rem;
   }
 
-  .about-record-meta{
+  .about-page.education-certifications .about-record-meta{
     grid-template-columns:1fr 1fr;
   }
 
-  .about-study-stage-head{
+  .about-page.education-certifications .about-study-stage-head{
     flex-direction:column;
     gap:.25rem;
   }
 }
 
 @media (max-width:520px){
-  .about-record-meta{
+  .about-page.education-certifications .about-record-meta{
     grid-template-columns:1fr;
   }
 
-  .about-study-stage li{
+  .about-page.education-certifications .about-study-stage li{
     grid-template-columns:1.05rem minmax(0,1fr) auto;
     gap:.4rem;
   }
 }
-
