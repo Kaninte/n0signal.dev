@@ -26,3 +26,11 @@ defaults:
     values:
       layout: post
       permalink: /blog/:slug/
+      
+  # About
+  - scope:
+      path: ""
+      type: about
+    values:
+      layout: default
+      permalink: /about/:slug/
