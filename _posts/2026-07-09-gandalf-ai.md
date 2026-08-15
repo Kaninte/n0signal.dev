@@ -287,3 +287,6 @@ This challenge ended up becoming more than just finding working prompt injection
 It also demonstrated just how difficult it is to implement guardrails for LLMs that are effective, but also don't interfere with legitimate requests. I found that as the protections in place became more stronger, they also became more likely to block legitimate prompts. So I think this is a genuinely difficult balance to get right. 
 
 Gandalf will continue to keep evolving and many of the techniques discussed in this post will eventually stop working and that is part of the challenge. Each improvement to the guardrails will also change the models behavior and create new opportunities to learn from, with new ways to test and observe the system. For me the biggest takeaway wasn't getting a working prompt to find the password, instead it was learning how to investigate and probe a black box system by treating every response, even refusals, as information. This process of forming a hypotheses to then continuously test and refine was a lot more valuable than finding the solution itself.
+
+## References
+https://gandalf.lakera.ai/
