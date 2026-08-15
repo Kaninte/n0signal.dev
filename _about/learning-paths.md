@@ -1,3 +1,6 @@
+---
+title: Learning Paths
+---
 ## In Progress
 ### TryHackMe 
 Account: nullalias

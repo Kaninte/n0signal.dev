@@ -1,3 +1,6 @@
+---
+title: Certifications & Training
+---
 ## Formal Study
 ### Certificate III in Visual Arts (Photography)
 Institution: TAFE SA
