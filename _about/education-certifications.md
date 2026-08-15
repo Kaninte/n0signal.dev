@@ -1,5 +1,5 @@
 ---
-title: Certifications & Training
+title: Education & Certifications
 ---
 ## Formal Study
 ### Certificate III in Visual Arts (Photography)
