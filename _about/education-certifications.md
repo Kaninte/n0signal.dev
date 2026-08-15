@@ -4,7 +4,6 @@ page_class: education-certifications
 script: education-certifications
 lead:
 ---
-<div id="about-record-source" class="about-record-source" markdown="1">
 ## Formal Study
 ### Certificate III in Visual Arts (Photography)
 Institution: TAFE SA
@@ -45,7 +44,4 @@ Institution: Allens Training Pty Ltd
 Status: COMPLETE
 Type: Safety
 Completed: 24/04/2019
-
-
-</div>
 
