@@ -8,7 +8,6 @@ layout: default
       <div>
         <div class="kicker grey">About</div>
         <h1 class="title">{{ page.title }}</h1>
-
         {% if page.description %}
           <p class="lead">{{ page.description }}</p>
         {% endif %}
@@ -17,6 +16,6 @@ layout: default
   </div>
 </section>
 
-<main class="wrap about-page {{ page.page_class }}">
+<main class="wrap about-page{% if page.page_class %} {{ page.page_class }}{% endif %}">
   {{ content }}
 </main>
