@@ -1,6 +1,6 @@
 (() => {
   const source =
-    document.getElementById("about-page-content") ||
+    document.getElementById("about-record-source") ||
     document.querySelector(".about-page.education-certifications");
 
   if (!source) return;
