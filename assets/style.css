@@ -1906,3 +1906,7 @@ article.card .badge.purple{
     grid-template-columns:1rem minmax(0,1fr) 3.5rem;
   }
 }
+
+.about-page.education-certifications .about-record-toggle{
+  margin-top:.35rem;
+}
