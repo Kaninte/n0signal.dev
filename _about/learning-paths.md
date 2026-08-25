@@ -1,10 +1,9 @@
 ---
 title: Learning Paths
 ---
-## In Progress
-### TryHackMe 
+## TryHackMe 
 Account: nullalias
-#### Cyber Security 101
+### Cyber Security 101
 Status: COMPLETE
 Completed: 
 - [x] Start Your Cyber Security Journey
@@ -22,7 +21,7 @@ Completed:
 - [x] Build Your Cyber Security Career
 - [x] OWASP Top 10 (2025)
 
-#### Security Engineer Path
+### Security Engineer Path
 Status: COMPLETE
 Completed: 
 - [x] Introduction to Security Engineering
@@ -32,7 +31,7 @@ Completed:
 - [x] Managing Incidents
 - [x] OWASP Top 10 (2025)
 
-#### Jr Penetration Tester
+### Jr Penetration Tester
 Status: IN PROGRESS
 Completed: 
 - [x] Start Your Cyber Security Journey
@@ -54,11 +53,11 @@ Completed:
 - [ ] Pentesting Methodologies and Reporting
 - [ ] Jr Pentester Challenges
 
-#### SOC Level 1
+### SOC Level 1
 Status: IN PROGRESS
 Completed: 
 - [x] Blue Team Introduction
-- [x] SOC Team ILearning Stacknternals
+- [x] SOC Team Internals
 - [x] Core SOC Solutions
 - [x] Cyber Defence Frameworks
 - [x] Phishing Analysis
@@ -71,3 +70,25 @@ Completed:
 - [ ] Threat Analysis Tools
 - [ ] SIEM Triage for SOC
 - [ ] SOC Level 1 Capstone Challenges
+
+## HackTheBox
+Account: nullalias
+### Target Material
+- [ ] Check Box
+
+## Harvard CS50
+### CS50x
+Status: IN PROGRESS
+Completed:
+- [ ] Week 0: Scratch
+- [ ] Week 1: C
+- [ ] Week 2: Arrays
+- [ ] Week 3: Algorithms
+- [ ] Week 4: Memory
+- [ ] Week 5: Data Structures
+- [ ] Week 6: Python
+- [ ] Week 7: SQL
+- [ ] Week 8: HTML, CSS, JavaScript
+- [ ] Week 9: Flask
+- [ ] Week 10: The End
+
