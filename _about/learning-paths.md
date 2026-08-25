@@ -1,5 +1,8 @@
 ---
 title: Learning Paths
+page_class: learning-paths
+script: learning-paths
+lead:
 ---
 ## TryHackMe 
 Account: nullalias
