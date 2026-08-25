@@ -1,6 +1,7 @@
 (() => {
   const source =
     document.getElementById("about-record-source") ||
+    document.getElementById("about-page-content") ||
     document.querySelector(".about-page.education-certifications");
 
   if (!source) return;
@@ -23,26 +24,12 @@
 
   const parseMetaNodes = (nodes) => {
     const meta = {};
-
     for (const node of nodes) {
       Object.assign(meta, parseMetaText((node.textContent || "").trim()));
     }
-
     return meta;
   };
 
-  /*
-    Rebuild a task-list row cleanly.
-
-    Kramdown normally renders:
-      <li class="task-list-item">
-        <input type="checkbox" ...>
-        Subject - DN
-      </li>
-
-    Completed qualifications discard the checkbox entirely.
-    In-progress qualifications keep the checkbox in its own column.
-  */
   const formatSubjectRow = (li, showCheckbox) => {
     const originalCheckbox = li.querySelector('input[type="checkbox"]');
     const checked = originalCheckbox?.checked ?? false;
@@ -53,7 +40,6 @@
     const subjectName = match ? match[1].trim() : raw;
     const grade = match ? match[2].toUpperCase() : "";
 
-    // Fully rebuild the row instead of trying to preserve Kramdown's child nodes.
     li.replaceChildren();
     li.classList.remove("task-list-item");
 
@@ -99,7 +85,6 @@
 
     if (showCheckbox) {
       const progress = document.createElement("span");
-      progress.textContent = "";
       progress.setAttribute("aria-hidden", "true");
       head.appendChild(progress);
     }
@@ -158,22 +143,19 @@
     record.classList.toggle("is-in-progress", isInProgress);
 
     const status = record.querySelector(".about-record-status");
-
     if (status) {
       if (meta.Status) status.textContent = meta.Status;
       else status.remove();
     }
 
-    const fields = [
-      ["Institution", meta.Institution],
-      ["Type", meta.Type],
-      ["Completed", meta.Completed],
-    ];
-
     const dl = document.createElement("dl");
     dl.className = "about-record-meta";
 
-    for (const [label, value] of fields) {
+    for (const [label, value] of [
+      ["Institution", meta.Institution],
+      ["Type", meta.Type],
+      ["Completed", meta.Completed],
+    ]) {
       if (label === "Completed" && !value) continue;
 
       const item = document.createElement("div");
@@ -203,10 +185,12 @@
         list.querySelectorAll(":scope > li").forEach((li) => {
           formatSubjectRow(li, isInProgress);
         });
-
         addSubjectHeader(stageEl, isInProgress);
       }
     }
+
+    const title =
+      record.querySelector(".about-record-title")?.textContent || "record";
 
     if (stages.length) {
       const details = document.createElement("div");
@@ -216,35 +200,39 @@
       stages.forEach((stageEl) => details.appendChild(stageEl));
       recordBody.appendChild(details);
 
-      const toggle = document.createElement("button");
-      toggle.type = "button";
-      toggle.className = "about-record-toggle";
-      toggle.setAttribute("aria-expanded", "false");
-
-      const title =
-        record.querySelector(".about-record-title")?.textContent || "record";
-
-      toggle.setAttribute("aria-label", `Expand ${title}`);
+      const summary = document.createElement("button");
+      summary.type = "button";
+      summary.className = "about-record-summary";
+      summary.setAttribute("aria-expanded", "false");
+      summary.setAttribute("aria-label", `Expand ${title}`);
 
       const detailsId =
         "about-record-details-" + Math.random().toString(36).slice(2, 9);
-
       details.id = detailsId;
-      toggle.setAttribute("aria-controls", detailsId);
+      summary.setAttribute("aria-controls", detailsId);
 
-      toggle.addEventListener("click", () => {
-        const expanded = toggle.getAttribute("aria-expanded") === "true";
+      const head = record.querySelector(".about-record-head");
+      const metaList = recordBody.querySelector(":scope > .about-record-meta");
 
-        toggle.setAttribute("aria-expanded", String(!expanded));
+      const caret = document.createElement("span");
+      caret.className = "about-record-caret";
+      caret.setAttribute("aria-hidden", "true");
+      head?.appendChild(caret);
+
+      if (head) summary.appendChild(head);
+      if (metaList) summary.appendChild(metaList);
+
+      summary.addEventListener("click", () => {
+        const expanded = summary.getAttribute("aria-expanded") === "true";
+        summary.setAttribute("aria-expanded", String(!expanded));
         details.hidden = expanded;
-
-        toggle.setAttribute(
+        summary.setAttribute(
           "aria-label",
           `${expanded ? "Expand" : "Collapse"} ${title}`
         );
       });
 
-      record.querySelector(".about-record-head")?.appendChild(toggle);
+      recordBody.prepend(summary);
     }
 
     record = null;
@@ -318,20 +306,13 @@
     }
 
     if (stage) {
-      if (
-        tag === "P" &&
-        /^Completed:/.test((node.textContent || "").trim())
-      ) {
+      if (tag === "P" && /^Completed:/.test((node.textContent || "").trim())) {
         const value = (node.textContent || "")
           .replace(/^Completed:\s*/, "")
           .trim();
 
         const date = stage.querySelector(".about-study-stage-date");
-
-        if (date) {
-          date.textContent = value ? `Completed ${value}` : "";
-        }
-
+        if (date) date.textContent = value ? `Completed ${value}` : "";
         continue;
       }
 
