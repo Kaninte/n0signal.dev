@@ -2241,3 +2241,94 @@ article.card .badge.purple{
   color:var(--record-accent);
 }
 
+/* ===== About / Education card interaction polish ===== */
+
+/* Match Learning Paths hover behaviour without changing the existing card layout. */
+.about-page.education-certifications .about-record.has-details{
+  padding-bottom:3rem;
+  cursor:pointer;
+  transition:
+    border-color .18s ease,
+    background-color .18s ease;
+}
+
+.about-page.education-certifications .about-record.has-details:hover{
+  background:color-mix(in srgb, var(--record-accent) 2.5%, transparent);
+  border-color:color-mix(in srgb, var(--record-accent) 35%, var(--border));
+}
+
+/* Keep expanded subject/unit content from behaving like the click target. */
+.about-page.education-certifications .about-record-details{
+  cursor:default;
+}
+
+/* Same simple caret language as Learning Paths, positioned bottom-right. */
+.about-page.education-certifications .about-record-toggle{
+  position:absolute;
+  right:1rem;
+  bottom:.8rem;
+
+  display:grid;
+  width:1.8rem;
+  height:1.8rem;
+  place-items:center;
+
+  margin:0;
+  padding:0;
+
+  color:var(--muted);
+  background:transparent;
+  border:0;
+  border-radius:0;
+
+  cursor:pointer;
+}
+
+.about-page.education-certifications .about-record-toggle:hover{
+  color:var(--record-accent);
+  background:transparent;
+  border:0;
+}
+
+.about-page.education-certifications .about-record-toggle:focus-visible{
+  outline:1px solid var(--cyan);
+  outline-offset:2px;
+}
+
+.about-page.education-certifications .about-record-toggle::before{
+  content:"";
+  width:.52rem;
+  height:.52rem;
+
+  border-right:1.5px solid currentColor;
+  border-bottom:1.5px solid currentColor;
+
+  transform:rotate(45deg) translateY(-2px);
+  transform-origin:center;
+
+  transition:
+    transform .18s ease,
+    color .18s ease;
+}
+
+.about-page.education-certifications .about-record-toggle[aria-expanded="true"]::before{
+  transform:rotate(225deg) translate(-1px,-1px);
+  color:var(--record-accent);
+}
+
+/* Remove the older late margin tweak now that the caret is positioned absolutely. */
+.about-page.education-certifications .about-record-toggle{
+  margin-top:0;
+}
+
+@media (max-width:760px){
+  .about-page.education-certifications .about-record.has-details{
+    padding-bottom:2.85rem;
+  }
+
+  .about-page.education-certifications .about-record-toggle{
+    right:.8rem;
+    bottom:.7rem;
+  }
+}
+
