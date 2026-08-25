@@ -38,28 +38,24 @@
       description: ""
     };
 
+    const pattern =
+      /(Status|Description|Completed):\s*(.*?)(?=\s+(?:Status|Description|Completed):|$)/gi;
+
     for (const p of Array.from(container.children).filter(el => el.tagName === "P")) {
       const text = (p.textContent || "").trim();
+      let matched = false;
 
-      const statusMatch = text.match(/^Status:\s*(.*)$/i);
-      const descriptionMatch = text.match(/^Description:\s*(.*)$/i);
+      for (const match of text.matchAll(pattern)) {
+        matched = true;
 
-      if (statusMatch) {
-        meta.status = statusMatch[1].trim();
-        p.remove();
-        continue;
+        const key = match[1].toLowerCase();
+        const value = match[2].trim();
+
+        if (key === "status") meta.status = value;
+        if (key === "description") meta.description = value;
       }
 
-      if (descriptionMatch) {
-        meta.description = descriptionMatch[1].trim();
-        p.remove();
-        continue;
-      }
-
-      // Kept in Markdown for consistency, but progress is derived from tasks.
-      if (/^Completed:\s*/i.test(text)) {
-        p.remove();
-      }
+      if (matched) p.remove();
     }
 
     return meta;
