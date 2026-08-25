@@ -8,7 +8,8 @@ lead:
 Account: nullalias
 ### Cyber Security 101
 Status: COMPLETE
-Completed: 
+Completed: 27/12/2025
+Description:
 - [x] Start Your Cyber Security Journey
 - [x] Linux Fundamentals
 - [x] Windows and AD Fundamentals
@@ -26,7 +27,8 @@ Completed:
 
 ### Security Engineer Path
 Status: COMPLETE
-Completed: 
+Completed: 05/02/2025
+Description:
 - [x] Introduction to Security Engineering
 - [x] Threats and Risks
 - [x] Network and System Security
@@ -37,6 +39,7 @@ Completed:
 ### Jr Penetration Tester
 Status: IN PROGRESS
 Completed: 
+Description:
 - [x] Start Your Cyber Security Journey
 - [ ] Penetration Testing Foundations
 - [x] Network Reconnaissance
@@ -59,6 +62,7 @@ Completed:
 ### SOC Level 1
 Status: IN PROGRESS
 Completed: 
+Description:
 - [x] Blue Team Introduction
 - [x] SOC Team Internals
 - [x] Core SOC Solutions
@@ -77,12 +81,16 @@ Completed:
 ## HackTheBox
 Account: nullalias
 ### Target Material
+Status: IN PROGRESS
+Completed: 
+Description:
 - [ ] Check Box
 
 ## Harvard CS50
 ### CS50x
 Status: IN PROGRESS
-Completed:
+Completed: 
+Description:
 - [ ] Week 0: Scratch
 - [ ] Week 1: C
 - [ ] Week 2: Arrays
