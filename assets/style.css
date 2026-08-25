@@ -1967,7 +1967,6 @@ article.card .badge.purple{
   gap:.85rem;
 }
 
-/* Individual learning path */
 .about-page.learning-paths .learning-path{
   --learning-accent:var(--muted);
   --learning-accent-soft:rgba(162,168,183,.08);
@@ -2029,7 +2028,6 @@ article.card .badge.purple{
   font-size:1.08rem;
   line-height:1.35;
 }
-
 
 .about-page.learning-paths .learning-path-description{
   max-width:72ch;
@@ -2113,7 +2111,6 @@ article.card .badge.purple{
   border-color:var(--learning-accent);
 }
 
-/* Expanded checklist */
 .about-page.learning-paths .learning-path-details{
   padding:0 1.3rem 1.15rem;
 }
@@ -2181,7 +2178,6 @@ article.card .badge.purple{
   font-size:.78rem;
 }
 
-/* JS briefly hides the source while it is transformed. */
 .about-page.learning-paths .learning-source.is-processing{
   visibility:hidden;
 }
@@ -2210,81 +2206,31 @@ article.card .badge.purple{
   }
 }
 
-/* ===== About / Education accordion alignment ===== */
-
-/* The entire summary becomes the dropdown target, matching Learning Paths. */
-.about-page.education-certifications .about-record{
-  padding:0;
-}
-
-.about-page.education-certifications .about-record-summary{
-  display:block;
-  width:100%;
-  padding:1.2rem 1.3rem;
-  color:inherit;
+/* Education keeps its existing card/dropdown layout.
+   Only the arrow is made to match Learning Paths. */
+.about-page.education-certifications .about-record-toggle{
+  color:var(--muted);
   background:transparent;
   border:0;
-  text-align:left;
-  cursor:pointer;
 }
 
-.about-page.education-certifications .about-record-summary:hover{
-  background:color-mix(in srgb, var(--record-accent) 2.5%, transparent);
+.about-page.education-certifications .about-record-toggle:hover{
+  color:var(--record-accent);
+  background:transparent;
+  border-color:transparent;
 }
 
-.about-page.education-certifications .about-record-summary:focus-visible{
-  outline:1px solid var(--cyan);
-  outline-offset:-2px;
-}
-
-.about-page.education-certifications .about-record-summary .about-record-head{
-  margin-bottom:.85rem;
-}
-
-.about-page.education-certifications .about-record-caret{
-  flex:0 0 auto;
+.about-page.education-certifications .about-record-toggle::before{
   width:.52rem;
   height:.52rem;
-  margin:.15rem .2rem 0 .35rem;
-  border-right:1.5px solid var(--muted);
-  border-bottom:1.5px solid var(--muted);
+  border-right:1.5px solid currentColor;
+  border-bottom:1.5px solid currentColor;
   transform:rotate(45deg) translateY(-2px);
   transform-origin:center;
-  transition:
-    transform .18s ease,
-    border-color .18s ease;
 }
 
-.about-page.education-certifications .about-record-summary[aria-expanded="true"] .about-record-caret{
+.about-page.education-certifications .about-record-toggle[aria-expanded="true"]::before{
   transform:rotate(225deg) translate(-1px,-1px);
-  border-color:var(--record-accent);
-}
-
-/* Old square toggle is no longer used by the updated JS. */
-.about-page.education-certifications .about-record-toggle{
-  display:none;
-}
-
-.about-page.education-certifications .about-record-details{
-  margin:0;
-  padding:0 1.3rem 1.15rem;
-  border-top:0;
-}
-
-.about-page.education-certifications .about-record-details::before{
-  content:"";
-  display:block;
-  margin-bottom:1rem;
-  border-top:1px solid var(--border);
-}
-
-@media (max-width:760px){
-  .about-page.education-certifications .about-record-summary{
-    padding:1.05rem 1rem;
-  }
-
-  .about-page.education-certifications .about-record-details{
-    padding:0 1rem 1rem;
-  }
+  color:var(--record-accent);
 }
 
