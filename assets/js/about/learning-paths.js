@@ -35,27 +35,36 @@
   const parseMeta = (container) => {
     const meta = {
       status: "",
+      completed: "",
       description: ""
     };
 
-    const pattern =
-      /(Status|Description|Completed):\s*(.*?)(?=\s+(?:Status|Description|Completed):|$)/gi;
+    const keys = ["Status", "Completed", "Description"];
 
     for (const p of Array.from(container.children).filter(el => el.tagName === "P")) {
       const text = (p.textContent || "").trim();
-      let matched = false;
 
-      for (const match of text.matchAll(pattern)) {
-        matched = true;
+      const matches = [...text.matchAll(/\b(Status|Completed|Description):/gi)];
+      if (!matches.length) continue;
 
+      for (let i = 0; i < matches.length; i++) {
+        const match = matches[i];
         const key = match[1].toLowerCase();
-        const value = match[2].trim();
+
+        const valueStart = match.index + match[0].length;
+        const valueEnd =
+          i + 1 < matches.length
+            ? matches[i + 1].index
+            : text.length;
+
+        const value = text.slice(valueStart, valueEnd).trim();
 
         if (key === "status") meta.status = value;
+        if (key === "completed") meta.completed = value;
         if (key === "description") meta.description = value;
       }
 
-      if (matched) p.remove();
+      p.remove();
     }
 
     return meta;
@@ -110,6 +119,16 @@
       description.textContent = meta.description;
     }
 
+    const completedDate =
+      isComplete && meta.completed
+        ? document.createElement("p")
+        : null;
+
+    if (completedDate) {
+      completedDate.className = "learning-path-completed-date";
+      completedDate.textContent = `Completed ${meta.completed}`;
+    }
+
     const progress = document.createElement("div");
     progress.className = "learning-progress";
 
@@ -136,6 +155,7 @@
     progress.append(count, track, percentEl, caret);
     button.append(head);
     if (description) button.append(description);
+    if (completedDate) button.append(completedDate);
     button.append(progress);
 
     const details = document.createElement("div");
