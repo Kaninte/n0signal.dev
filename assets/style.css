@@ -2037,6 +2037,13 @@ article.card .badge.purple{
   line-height:1.55;
 }
 
+.about-page.learning-paths .learning-path-completed-date{
+  margin:.45rem 0 0;
+  color:var(--blue);
+  font-family:var(--mono);
+  font-size:.74rem;
+}
+
 .about-page.learning-paths .learning-path-status{
   flex:0 0 auto;
   padding:.24rem .48rem;
