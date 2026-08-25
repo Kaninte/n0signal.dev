@@ -1907,6 +1907,10 @@ article.card .badge.purple{
   }
 }
 
+.about-page.education-certifications .about-record-toggle{
+  margin-top:.35rem;
+}
+
 /* ===== About / Learning Paths ===== */
 
 .about-page.learning-paths .learning-source{
@@ -1922,7 +1926,7 @@ article.card .badge.purple{
 
 .about-page.learning-paths .learning-platform-head{
   display:flex;
-  align-items:end;
+  align-items:flex-end;
   justify-content:space-between;
   gap:1rem;
   margin:0 0 1rem;
@@ -1963,9 +1967,11 @@ article.card .badge.purple{
   gap:.85rem;
 }
 
+/* Individual learning path */
 .about-page.learning-paths .learning-path{
   --learning-accent:var(--muted);
   --learning-accent-soft:rgba(162,168,183,.08);
+
   position:relative;
   background:rgba(255,255,255,.015);
   border:1px solid var(--border);
@@ -2022,6 +2028,15 @@ article.card .badge.purple{
   color:var(--fg);
   font-size:1.08rem;
   line-height:1.35;
+}
+
+
+.about-page.learning-paths .learning-path-description{
+  max-width:72ch;
+  margin:.65rem 0 0;
+  color:var(--muted);
+  font-size:.88rem;
+  line-height:1.55;
 }
 
 .about-page.learning-paths .learning-path-status{
@@ -2088,7 +2103,9 @@ article.card .badge.purple{
   border-bottom:1.5px solid var(--muted);
   transform:rotate(45deg) translateY(-2px);
   transform-origin:center;
-  transition:transform .18s ease,border-color .18s ease;
+  transition:
+    transform .18s ease,
+    border-color .18s ease;
 }
 
 .about-page.learning-paths .learning-path-toggle[aria-expanded="true"] .learning-path-caret{
@@ -2096,6 +2113,7 @@ article.card .badge.purple{
   border-color:var(--learning-accent);
 }
 
+/* Expanded checklist */
 .about-page.learning-paths .learning-path-details{
   padding:0 1.3rem 1.15rem;
 }
@@ -2163,6 +2181,7 @@ article.card .badge.purple{
   font-size:.78rem;
 }
 
+/* JS briefly hides the source while it is transformed. */
 .about-page.learning-paths .learning-source.is-processing{
   visibility:hidden;
 }
