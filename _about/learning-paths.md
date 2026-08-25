@@ -9,7 +9,7 @@ Account: nullalias
 ### Cyber Security 101
 Status: COMPLETE
 Completed: 27/12/2025
-Description:
+Description: 
 - [x] Start Your Cyber Security Journey
 - [x] Linux Fundamentals
 - [x] Windows and AD Fundamentals
@@ -39,7 +39,7 @@ Description:
 ### Jr Penetration Tester
 Status: IN PROGRESS
 Completed: 
-Description:
+Description: Learning the workflow and tooling for pentesting
 - [x] Start Your Cyber Security Journey
 - [ ] Penetration Testing Foundations
 - [x] Network Reconnaissance
