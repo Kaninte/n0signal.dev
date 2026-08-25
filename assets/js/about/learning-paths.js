@@ -32,28 +32,44 @@
       : { checked: false, name: text };
   };
 
-  const parseStatus = (container) => {
-    let status = "";
+  const parseMeta = (container) => {
+    const meta = {
+      status: "",
+      description: ""
+    };
 
     for (const p of Array.from(container.children).filter(el => el.tagName === "P")) {
       const text = (p.textContent || "").trim();
+
       const statusMatch = text.match(/^Status:\s*(.*)$/i);
+      const descriptionMatch = text.match(/^Description:\s*(.*)$/i);
 
       if (statusMatch) {
-        status = statusMatch[1].trim();
+        meta.status = statusMatch[1].trim();
         p.remove();
-      } else if (/^Completed:\s*/i.test(text)) {
+        continue;
+      }
+
+      if (descriptionMatch) {
+        meta.description = descriptionMatch[1].trim();
+        p.remove();
+        continue;
+      }
+
+      // Kept in Markdown for consistency, but progress is derived from tasks.
+      if (/^Completed:\s*/i.test(text)) {
         p.remove();
       }
     }
 
-    return status;
+    return meta;
   };
 
   const finishPath = () => {
     if (!path || !pathBody) return;
 
-    const status = parseStatus(pathBody);
+    const meta = parseMeta(pathBody);
+    const status = meta.status;
     const statusUpper = status.toUpperCase();
 
     const originalList = pathBody.querySelector(":scope > ul");
@@ -89,6 +105,15 @@
 
     head.append(titleEl, statusEl);
 
+    const description = meta.description
+      ? document.createElement("p")
+      : null;
+
+    if (description) {
+      description.className = "learning-path-description";
+      description.textContent = meta.description;
+    }
+
     const progress = document.createElement("div");
     progress.className = "learning-progress";
 
@@ -113,7 +138,9 @@
     caret.setAttribute("aria-hidden", "true");
 
     progress.append(count, track, percentEl, caret);
-    button.append(head, progress);
+    button.append(head);
+    if (description) button.append(description);
+    button.append(progress);
 
     const details = document.createElement("div");
     details.className = "learning-path-details";
