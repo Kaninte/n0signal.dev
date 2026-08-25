@@ -2210,3 +2210,81 @@ article.card .badge.purple{
   }
 }
 
+/* ===== About / Education accordion alignment ===== */
+
+/* The entire summary becomes the dropdown target, matching Learning Paths. */
+.about-page.education-certifications .about-record{
+  padding:0;
+}
+
+.about-page.education-certifications .about-record-summary{
+  display:block;
+  width:100%;
+  padding:1.2rem 1.3rem;
+  color:inherit;
+  background:transparent;
+  border:0;
+  text-align:left;
+  cursor:pointer;
+}
+
+.about-page.education-certifications .about-record-summary:hover{
+  background:color-mix(in srgb, var(--record-accent) 2.5%, transparent);
+}
+
+.about-page.education-certifications .about-record-summary:focus-visible{
+  outline:1px solid var(--cyan);
+  outline-offset:-2px;
+}
+
+.about-page.education-certifications .about-record-summary .about-record-head{
+  margin-bottom:.85rem;
+}
+
+.about-page.education-certifications .about-record-caret{
+  flex:0 0 auto;
+  width:.52rem;
+  height:.52rem;
+  margin:.15rem .2rem 0 .35rem;
+  border-right:1.5px solid var(--muted);
+  border-bottom:1.5px solid var(--muted);
+  transform:rotate(45deg) translateY(-2px);
+  transform-origin:center;
+  transition:
+    transform .18s ease,
+    border-color .18s ease;
+}
+
+.about-page.education-certifications .about-record-summary[aria-expanded="true"] .about-record-caret{
+  transform:rotate(225deg) translate(-1px,-1px);
+  border-color:var(--record-accent);
+}
+
+/* Old square toggle is no longer used by the updated JS. */
+.about-page.education-certifications .about-record-toggle{
+  display:none;
+}
+
+.about-page.education-certifications .about-record-details{
+  margin:0;
+  padding:0 1.3rem 1.15rem;
+  border-top:0;
+}
+
+.about-page.education-certifications .about-record-details::before{
+  content:"";
+  display:block;
+  margin-bottom:1rem;
+  border-top:1px solid var(--border);
+}
+
+@media (max-width:760px){
+  .about-page.education-certifications .about-record-summary{
+    padding:1.05rem 1rem;
+  }
+
+  .about-page.education-certifications .about-record-details{
+    padding:0 1rem 1rem;
+  }
+}
+
