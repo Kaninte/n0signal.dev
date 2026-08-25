@@ -233,16 +233,37 @@
       details.id = detailsId;
       toggle.setAttribute("aria-controls", detailsId);
 
-      toggle.addEventListener("click", () => {
-        const expanded = toggle.getAttribute("aria-expanded") === "true";
-
-        toggle.setAttribute("aria-expanded", String(!expanded));
-        details.hidden = expanded;
+      const setExpanded = (expanded) => {
+        toggle.setAttribute("aria-expanded", String(expanded));
+        details.hidden = !expanded;
 
         toggle.setAttribute(
           "aria-label",
-          `${expanded ? "Expand" : "Collapse"} ${title}`
+          `${expanded ? "Collapse" : "Expand"} ${title}`
         );
+      };
+
+      const toggleRecord = () => {
+        const expanded = toggle.getAttribute("aria-expanded") === "true";
+        setExpanded(!expanded);
+      };
+
+      toggle.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleRecord();
+      });
+
+      record.classList.add("has-details");
+
+      record.addEventListener("click", (event) => {
+        /*
+          The collapsed/summary part of the card is the click target.
+          Clicking inside expanded subject/unit content should not collapse it.
+        */
+        if (event.target.closest(".about-record-details")) return;
+        if (event.target.closest(".about-record-toggle")) return;
+
+        toggleRecord();
       });
 
       record.querySelector(".about-record-head")?.appendChild(toggle);
